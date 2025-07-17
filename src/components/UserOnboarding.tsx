@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -7,6 +7,7 @@ import { useUserProfile } from "@/hooks/useUserProfile";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { useTranslation } from 'react-i18next';
 import { 
   Users, 
   Building2, 
@@ -17,7 +18,9 @@ import {
   BarChart3, 
   Globe,
   ArrowRight,
-  Sparkles
+  Sparkles,
+  Languages,
+  ArrowLeft
 } from "lucide-react";
 
 interface UserRole {
@@ -42,6 +45,11 @@ interface UserOnboardingProps {
   onClose: () => void;
   onRoleSelected: (role: string) => void;
 }
+
+const languages = [
+  { code: 'en', name: 'English', nameLocal: 'English', flag: '🇺🇸' },
+  { code: 'ar', name: 'Arabic', nameLocal: 'العربية', flag: '🇸🇦' }
+];
 
 const roles: UserRole[] = [
   {
@@ -148,10 +156,20 @@ const roles: UserRole[] = [
 
 export default function UserOnboarding({ isOpen, onClose, onRoleSelected }: UserOnboardingProps) {
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
-  const [isArabic, setIsArabic] = useState(false);
+  const [currentStep, setCurrentStep] = useState<'language' | 'role'>('language');
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
   const { profile } = useUserProfile();
+  const { i18n, t } = useTranslation();
+
+  const isArabic = i18n.language === 'ar';
+
+  const handleLanguageSelection = (languageCode: string) => {
+    i18n.changeLanguage(languageCode);
+    document.documentElement.lang = languageCode;
+    document.documentElement.dir = languageCode === 'ar' ? 'rtl' : 'ltr';
+    setCurrentStep('role');
+  };
 
   const handleRoleSelection = async (roleId: string) => {
     if (!user) {
@@ -210,122 +228,174 @@ export default function UserOnboarding({ isOpen, onClose, onRoleSelected }: User
     ));
   };
 
+  const renderLanguageSelection = () => (
+    <div className="space-y-6">
+      <DialogHeader className="text-center space-y-4">
+        <div className="flex items-center justify-center">
+          <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+            <Building2 className="h-5 w-5 text-primary-foreground" />
+          </div>
+          <span className="text-lg font-bold ml-2">Manzily</span>
+        </div>
+        
+        <DialogTitle className="text-2xl">
+          Welcome to Manzily
+          <br />
+          <span className="text-xl text-muted-foreground">مرحباً بك في منزلي</span>
+        </DialogTitle>
+        
+        <DialogDescription className="text-lg">
+          Please select your preferred language
+          <br />
+          يرجى اختيار لغتك المفضلة
+        </DialogDescription>
+      </DialogHeader>
+
+      <div className="space-y-4">
+        <div className="text-center">
+          <Languages className="h-12 w-12 mx-auto mb-4 text-primary" />
+          <h3 className="text-lg font-semibold mb-6">Choose Language / اختر اللغة</h3>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 max-w-md mx-auto">
+          {languages.map((language) => (
+            <Card 
+              key={language.code}
+              className="cursor-pointer transition-all duration-200 hover:shadow-lg border-2 hover:border-primary/50"
+              onClick={() => handleLanguageSelection(language.code)}
+            >
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <span className="text-3xl">{language.flag}</span>
+                  <div className="text-left">
+                    <h4 className="font-semibold text-lg">{language.nameLocal}</h4>
+                    <p className="text-muted-foreground">{language.name}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderRoleSelection = () => (
+    <div className="space-y-6">
+      <DialogHeader className="text-center space-y-4">
+        <div className="flex items-center justify-between">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setCurrentStep('language')}
+            className="flex items-center gap-2"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            {isArabic ? "العودة" : "Back"}
+          </Button>
+          
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+              <Building2 className="h-5 w-5 text-primary-foreground" />
+            </div>
+            <span className="text-lg font-bold">Manzily</span>
+          </div>
+          
+          <div />
+        </div>
+        
+        <DialogTitle className="text-2xl">
+          {isArabic ? "مرحباً بك في منزلي، منصة العقارات الذكية" : "Welcome to Manzily, your smart real estate platform"}
+        </DialogTitle>
+        
+        <DialogDescription className="text-lg">
+          {isArabic 
+            ? "لنبدأ! يرجى إخباري بدورك وما تريد فعله اليوم"
+            : "Let's get started! Please tell me your role and what you want to do today"
+          }
+        </DialogDescription>
+      </DialogHeader>
+
+      <div className="space-y-6">
+        <div className="text-center">
+          <h3 className="text-lg font-semibold mb-4">
+            {isArabic ? "اختر دورك:" : "Choose your role:"}
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {roles.map((role) => (
+            <Card 
+              key={role.id}
+              className={`cursor-pointer transition-all duration-200 hover:shadow-lg border-2 ${
+                selectedRole === role.id 
+                  ? "border-primary bg-primary/5" 
+                  : "border-border hover:border-primary/50"
+              }`}
+              onClick={() => setSelectedRole(role.id)}
+            >
+              <CardHeader className="pb-3">
+                <div className="flex items-center gap-3">
+                  <div className={`w-12 h-12 ${role.color} rounded-full flex items-center justify-center`}>
+                    <role.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <CardTitle className="text-lg">
+                      {isArabic ? role.titleAr : role.title}
+                    </CardTitle>
+                    <CardDescription>
+                      {isArabic ? role.descriptionAr : role.description}
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="pt-0">
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-muted-foreground mb-3">
+                    {isArabic ? "ما يمكنك فعله:" : "What you can do:"}
+                  </p>
+                  {getRoleActions(role)}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {selectedRole && (
+          <div className="flex justify-center pt-4">
+            <Button 
+              onClick={() => handleRoleSelection(selectedRole)}
+              disabled={isLoading}
+              size="lg"
+              className="flex items-center gap-2"
+            >
+              {isLoading ? (
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground" />
+              ) : (
+                <>
+                  {isArabic ? "ابدأ الآن" : "Get Started"}
+                  <ArrowRight className="h-4 w-4" />
+                </>
+              )}
+            </Button>
+          </div>
+        )}
+      </div>
+
+      <div className="text-center text-sm text-muted-foreground">
+        {isArabic 
+          ? "يمكنك تغيير دورك في أي وقت من إعدادات الملف الشخصي"
+          : "You can change your role anytime from your profile settings"
+        }
+      </div>
+    </div>
+  );
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-        <DialogHeader className="text-center space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <Building2 className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <span className="text-lg font-bold">Manzily</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setIsArabic(false)}
-                className={!isArabic ? "bg-primary text-primary-foreground" : ""}
-              >
-                EN
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setIsArabic(true)}
-                className={isArabic ? "bg-primary text-primary-foreground" : ""}
-              >
-                عربي
-              </Button>
-            </div>
-          </div>
-          
-          <DialogTitle className="text-2xl">
-            {isArabic ? "مرحباً بك في منزلي، منصة العقارات الذكية" : "Welcome to Manzily, your smart real estate platform"}
-          </DialogTitle>
-          
-          <DialogDescription className="text-lg">
-            {isArabic 
-              ? "لنبدأ! يرجى إخباري بدورك وما تريد فعله اليوم"
-              : "Let's get started! Please tell me your role and what you want to do today"
-            }
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="space-y-6 mt-6">
-          <div className="text-center">
-            <h3 className="text-lg font-semibold mb-4">
-              {isArabic ? "اختر دورك:" : "Choose your role:"}
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {roles.map((role) => (
-              <Card 
-                key={role.id}
-                className={`cursor-pointer transition-all duration-200 hover:shadow-lg border-2 ${
-                  selectedRole === role.id 
-                    ? "border-primary bg-primary/5" 
-                    : "border-border hover:border-primary/50"
-                }`}
-                onClick={() => setSelectedRole(role.id)}
-              >
-                <CardHeader className="pb-3">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-12 h-12 ${role.color} rounded-full flex items-center justify-center`}>
-                      <role.icon className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <CardTitle className="text-lg">
-                        {isArabic ? role.titleAr : role.title}
-                      </CardTitle>
-                      <CardDescription>
-                        {isArabic ? role.descriptionAr : role.description}
-                      </CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="pt-0">
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium text-muted-foreground mb-3">
-                      {isArabic ? "ما يمكنك فعله:" : "What you can do:"}
-                    </p>
-                    {getRoleActions(role)}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {selectedRole && (
-            <div className="flex justify-center pt-4">
-              <Button 
-                onClick={() => handleRoleSelection(selectedRole)}
-                disabled={isLoading}
-                size="lg"
-                className="flex items-center gap-2"
-              >
-                {isLoading ? (
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground" />
-                ) : (
-                  <>
-                    {isArabic ? "ابدأ الآن" : "Get Started"}
-                    <ArrowRight className="h-4 w-4" />
-                  </>
-                )}
-              </Button>
-            </div>
-          )}
-        </div>
-
-        <div className="mt-6 text-center text-sm text-muted-foreground">
-          {isArabic 
-            ? "يمكنك تغيير دورك في أي وقت من إعدادات الملف الشخصي"
-            : "You can change your role anytime from your profile settings"
-          }
-        </div>
+        {currentStep === 'language' ? renderLanguageSelection() : renderRoleSelection()}
       </DialogContent>
     </Dialog>
   );
