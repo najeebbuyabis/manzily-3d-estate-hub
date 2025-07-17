@@ -17,6 +17,10 @@ export default {
 				'2xl': '1400px'
 			}
 		},
+		fontFamily: {
+			'sans': ['Inter', 'Noto Sans Arabic', 'sans-serif'],
+			'arabic': ['Noto Sans Arabic', 'sans-serif']
+		},
 		extend: {
 			colors: {
 				border: 'hsl(var(--border))',

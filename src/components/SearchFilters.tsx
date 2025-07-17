@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Search, MapPin, SlidersHorizontal, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from 'react-i18next';
 
 interface SearchFiltersProps {
   onFiltersChange?: (filters: FilterState) => void;
@@ -22,25 +23,26 @@ interface FilterState {
   area: string;
 }
 
-const propertyTypes = [
-  { value: "apartment", label: "Apartment" },
-  { value: "studio", label: "Studio" },
-  { value: "penthouse", label: "Penthouse" },
+const getPropertyTypes = (t: any) => [
+  { value: "apartment", label: t('apartment') },
+  { value: "studio", label: t('studio') },
+  { value: "penthouse", label: t('penthouse') },
   { value: "duplex", label: "Duplex" },
 ];
 
-const bedroomOptions = [
+const getBedroomOptions = (t: any) => [
   { value: "any", label: "Any" },
-  { value: "1", label: "1 Bedroom" },
-  { value: "2", label: "2 Bedrooms" },
-  { value: "3", label: "3 Bedrooms" },
-  { value: "4+", label: "4+ Bedrooms" },
+  { value: "1", label: `1 ${t('bedrooms')}` },
+  { value: "2", label: `2 ${t('bedrooms')}` },
+  { value: "3", label: `3 ${t('bedrooms')}` },
+  { value: "4+", label: `4+ ${t('bedrooms')}` },
 ];
 
 export const SearchFilters: React.FC<SearchFiltersProps> = ({ 
   onFiltersChange, 
   className 
 }) => {
+  const { t } = useTranslation();
   const [filters, setFilters] = useState<FilterState>({
     location: "",
     civilNumber: "",
@@ -104,7 +106,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
               <SelectValue placeholder="Property Type" />
             </SelectTrigger>
             <SelectContent>
-              {propertyTypes.map((type) => (
+              {getPropertyTypes(t).map((type) => (
                 <SelectItem key={type.value} value={type.value}>
                   {type.label}
                 </SelectItem>
@@ -117,7 +119,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
               <SelectValue placeholder="Bedrooms" />
             </SelectTrigger>
             <SelectContent>
-              {bedroomOptions.map((option) => (
+              {getBedroomOptions(t).map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.label}
                 </SelectItem>

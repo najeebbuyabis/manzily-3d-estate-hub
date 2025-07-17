@@ -7,11 +7,14 @@ import { AuthModal } from "@/components/auth/AuthModal";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useTranslation } from 'react-i18next';
+import { LanguageToggle } from "@/components/LanguageToggle";
 
 export const Header: React.FC = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const { user, subscription } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -35,7 +38,7 @@ export const Header: React.FC = () => {
           {/* Navigation - Desktop */}
           <nav className="hidden md:flex items-center gap-6">
             <a href="#" className="text-foreground hover:text-primary transition-colors font-medium">
-              Properties
+              {t('home')}
             </a>
             <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
               Agents
@@ -51,10 +54,7 @@ export const Header: React.FC = () => {
           {/* Actions */}
           <div className="flex items-center gap-3">
             {/* Language Toggle */}
-            <Button variant="ghost" size="sm" className="hidden sm:flex">
-              <Globe className="h-4 w-4" />
-              EN
-            </Button>
+            <LanguageToggle />
 
             {/* Auth Buttons */}
             {user ? (
@@ -65,35 +65,35 @@ export const Header: React.FC = () => {
                     {user.email?.split('@')[0]}
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
+                <DropdownMenuContent align="end" className="bg-background border z-50">
                   <DropdownMenuItem onClick={() => navigate('/billing')}>
                     <CreditCard className="mr-2 h-4 w-4" />
-                    Billing
+                    {t('billing')}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate('/commissions')}>
                     <DollarSign className="mr-2 h-4 w-4" />
-                    Commissions
+                    {t('commissions')}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate('/invoices')}>
                     <FileText className="mr-2 h-4 w-4" />
-                    Invoices
+                    {t('invoices')}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleSignOut}>
                     <LogOut className="mr-2 h-4 w-4" />
-                    Sign Out
+                    {t('signOut')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
               <Button variant="ghost" size="sm" onClick={() => setAuthModalOpen(true)}>
                 <User className="h-4 w-4" />
-                Login
+                {t('signIn')}
               </Button>
             )}
             
             <Button variant="hero" size="sm">
-              List Property
+              {t('listProperty')}
             </Button>
 
             {/* Mobile Menu */}

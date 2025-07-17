@@ -1,0 +1,158 @@
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+
+const resources = {
+  en: {
+    translation: {
+      // Navigation
+      home: "Home",
+      billing: "Billing",
+      commissions: "Commissions", 
+      invoices: "Invoices",
+      listProperty: "List Property",
+      signIn: "Sign In",
+      signOut: "Sign Out",
+      
+      // Property search and filters
+      searchProperties: "Search Properties",
+      priceRange: "Price Range",
+      bedrooms: "Bedrooms",
+      bathrooms: "Bathrooms",
+      propertyType: "Property Type",
+      apartment: "Apartment",
+      villa: "Villa",
+      townhouse: "Townhouse",
+      studio: "Studio",
+      penthouse: "Penthouse",
+      
+      // Property details
+      propertyDetails: "Property Details",
+      features: "Features",
+      location: "Location",
+      contactAgent: "Contact Agent",
+      viewDetails: "View Details",
+      
+      // Authentication
+      loginTitle: "Welcome Back",
+      loginSubtitle: "Sign in to your account to continue",
+      email: "Email",
+      password: "Password",
+      forgotPassword: "Forgot Password?",
+      noAccount: "Don't have an account?",
+      signUp: "Sign Up",
+      createAccount: "Create Account",
+      alreadyHaveAccount: "Already have an account?",
+      
+      // Common
+      currency: "AED",
+      loading: "Loading...",
+      error: "Error",
+      success: "Success",
+      cancel: "Cancel",
+      save: "Save",
+      delete: "Delete",
+      edit: "Edit",
+      search: "Search",
+      filter: "Filter",
+      clear: "Clear",
+      apply: "Apply",
+      
+      // Property listing
+      noPropertiesFound: "No properties found",
+      viewMap: "View Map",
+      viewGrid: "View Grid",
+      sortBy: "Sort by",
+      priceHighToLow: "Price: High to Low",
+      priceLowToHigh: "Price: Low to High",
+      newest: "Newest First",
+      oldest: "Oldest First"
+    }
+  },
+  ar: {
+    translation: {
+      // Navigation  
+      home: "الرئيسية",
+      billing: "الفواتير",
+      commissions: "العمولات",
+      invoices: "الفواتير",
+      listProperty: "إدراج عقار",
+      signIn: "تسجيل الدخول",
+      signOut: "تسجيل الخروج",
+      
+      // Property search and filters
+      searchProperties: "البحث عن العقارات",
+      priceRange: "نطاق السعر",
+      bedrooms: "غرف النوم",
+      bathrooms: "الحمامات",
+      propertyType: "نوع العقار",
+      apartment: "شقة",
+      villa: "فيلا",
+      townhouse: "تاون هاوس",
+      studio: "استوديو",
+      penthouse: "بنتهاوس",
+      
+      // Property details
+      propertyDetails: "تفاصيل العقار",
+      features: "المميزات",
+      location: "الموقع",
+      contactAgent: "تواصل مع الوكيل",
+      viewDetails: "عرض التفاصيل",
+      
+      // Authentication
+      loginTitle: "مرحباً بعودتك",
+      loginSubtitle: "سجل دخولك إلى حسابك للمتابعة",
+      email: "البريد الإلكتروني",
+      password: "كلمة المرور",
+      forgotPassword: "نسيت كلمة المرور؟",
+      noAccount: "ليس لديك حساب؟",
+      signUp: "إنشاء حساب",
+      createAccount: "إنشاء حساب",
+      alreadyHaveAccount: "لديك حساب بالفعل؟",
+      
+      // Common
+      currency: "درهم",
+      loading: "جاري التحميل...",
+      error: "خطأ",
+      success: "نجح",
+      cancel: "إلغاء",
+      save: "حفظ",
+      delete: "حذف",
+      edit: "تعديل",
+      search: "بحث",
+      filter: "تصفية",
+      clear: "مسح",
+      apply: "تطبيق",
+      
+      // Property listing
+      noPropertiesFound: "لم يتم العثور على عقارات",
+      viewMap: "عرض الخريطة",
+      viewGrid: "عرض الشبكة",
+      sortBy: "ترتيب حسب",
+      priceHighToLow: "السعر: من الأعلى إلى الأقل",
+      priceLowToHigh: "السعر: من الأقل إلى الأعلى",
+      newest: "الأحدث أولاً",
+      oldest: "الأقدم أولاً"
+    }
+  }
+};
+
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources,
+    fallbackLng: 'en',
+    debug: false,
+    
+    interpolation: {
+      escapeValue: false
+    },
+    
+    detection: {
+      order: ['localStorage', 'navigator', 'htmlTag'],
+      caches: ['localStorage']
+    }
+  });
+
+export default i18n;

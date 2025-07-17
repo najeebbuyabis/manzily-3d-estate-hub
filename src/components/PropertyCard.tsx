@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Bed, Bath, Square, Heart, Phone, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 interface PropertyCardProps {
   id: string;
@@ -40,6 +41,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   onClick,
 }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <Card 
       className={cn(
@@ -129,11 +131,11 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           <div className="flex gap-2 pt-2">
             <Button variant="default" size="sm" className="flex-1">
               <Phone className="h-4 w-4" />
-              Call
+              {t('contactAgent')}
             </Button>
             <Button variant="outline" size="sm" className="flex-1">
               <MessageCircle className="h-4 w-4" />
-              Chat
+              {t('viewDetails')}
             </Button>
           </div>
         </div>
