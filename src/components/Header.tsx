@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Building2, User, Globe, Menu, LogOut, CreditCard, DollarSign, FileText } from "lucide-react";
+import { Building2, User, Globe, Menu, LogOut, CreditCard, DollarSign, FileText, Users, Settings } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +16,25 @@ export const Header: React.FC = () => {
   const { user, subscription } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  // Check if user is admin
+  const { data: userProfile } = useQuery({
+    queryKey: ["user-profile", user?.id],
+    queryFn: async () => {
+      if (!user?.id) return null;
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("user_id", user.id)
+        .single();
+      
+      if (error) return null;
+      return data;
+    },
+    enabled: !!user?.id,
+  });
+
+  const isAdmin = userProfile?.role === 'admin';
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -37,9 +57,12 @@ export const Header: React.FC = () => {
 
           {/* Navigation - Desktop */}
           <nav className="hidden md:flex items-center gap-6">
-            <a href="#" className="text-foreground hover:text-primary transition-colors font-medium">
+            <Button variant="ghost" onClick={() => navigate('/')} className="text-foreground hover:text-primary transition-colors font-medium">
               {t('home')}
-            </a>
+            </Button>
+            <Button variant="ghost" onClick={() => navigate('/developers')} className="text-muted-foreground hover:text-primary transition-colors">
+              Developers
+            </Button>
             <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
               Agents
             </a>
@@ -78,6 +101,15 @@ export const Header: React.FC = () => {
                     <FileText className="mr-2 h-4 w-4" />
                     {t('invoices')}
                   </DropdownMenuItem>
+                  {isAdmin && (
+                    <>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={() => navigate('/admin/developers')}>
+                        <Users className="mr-2 h-4 w-4" />
+                        Manage Developers
+                      </DropdownMenuItem>
+                    </>
+                  )}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleSignOut}>
                     <LogOut className="mr-2 h-4 w-4" />

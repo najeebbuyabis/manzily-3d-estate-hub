@@ -53,6 +53,83 @@ export type Database = {
         }
         Relationships: []
       }
+      developer_projects: {
+        Row: {
+          created_at: string
+          developer_id: string
+          id: string
+          property_id: string
+        }
+        Insert: {
+          created_at?: string
+          developer_id: string
+          id?: string
+          property_id: string
+        }
+        Update: {
+          created_at?: string
+          developer_id?: string
+          id?: string
+          property_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "developer_projects_developer_id_fkey"
+            columns: ["developer_id"]
+            isOneToOne: false
+            referencedRelation: "developers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      developers: {
+        Row: {
+          address: string | null
+          created_at: string
+          description: string | null
+          email: string | null
+          id: string
+          is_active: boolean
+          is_featured: boolean
+          logo_url: string | null
+          name: string
+          phone: string | null
+          slug: string
+          updated_at: string
+          website_url: string | null
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          logo_url?: string | null
+          name: string
+          phone?: string | null
+          slug: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          logo_url?: string | null
+          name?: string
+          phone?: string | null
+          slug?: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: []
+      }
       invoices: {
         Row: {
           amount: number

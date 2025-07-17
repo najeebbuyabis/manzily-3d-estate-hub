@@ -10,6 +10,9 @@ import Billing from "./pages/Billing";
 import Commissions from "./pages/Commissions";
 import Invoices from "./pages/Invoices";
 import PropertyDetail from "./pages/PropertyDetail";
+import DeveloperShowcase from "./pages/DeveloperShowcase";
+import AdminDevelopers from "./pages/AdminDevelopers";
+import Developers from "./pages/Developers";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +31,9 @@ const App = () => (
             <Route path="/billing/cancel" element={<Billing />} />
             <Route path="/commissions" element={<Commissions />} />
             <Route path="/invoices" element={<Invoices />} />
+            <Route path="/developers" element={<Developers />} />
+            <Route path="/developers/:slug" element={<DeveloperShowcase />} />
+            <Route path="/admin/developers" element={<AdminDevelopers />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
