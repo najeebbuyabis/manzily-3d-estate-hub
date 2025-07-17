@@ -52,7 +52,7 @@ export default function Admin() {
   });
 
   // Check if user is admin
-  const { data: userProfile } = useQuery({
+  const { data: userProfile, isLoading: profileLoading } = useQuery({
     queryKey: ["user-profile", user?.id],
     queryFn: async () => {
       if (!user?.id) return null;
@@ -69,14 +69,28 @@ export default function Admin() {
       return data;
     },
     enabled: !!user?.id,
+    staleTime: 0, // Always fetch fresh data
   });
 
   const isAdmin = userProfile?.role === 'admin';
 
-  // Redirect non-admin users
-  if (!isAdmin && userProfile) {
-    navigate('/');
-    return null;
+  // Show loading while checking admin status
+  if (profileLoading && user) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <div className="container mx-auto py-8">
+          <Card>
+            <CardContent className="flex items-center justify-center py-12">
+              <div className="text-center space-y-4">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+                <p className="text-muted-foreground">Checking permissions...</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
   }
 
   // Fetch developers
@@ -186,7 +200,8 @@ export default function Admin() {
     }
   };
 
-  if (!isAdmin) {
+  // Show access denied for non-admin users after profile is loaded
+  if (!isAdmin && userProfile && !profileLoading) {
     return (
       <div className="min-h-screen bg-background">
         <Header />
