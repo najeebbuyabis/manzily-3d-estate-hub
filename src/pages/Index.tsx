@@ -66,7 +66,7 @@ const Index = () => {
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <Badge className="bg-secondary text-secondary-foreground px-4 py-2">
               <Star className="h-4 w-4 mr-2" />
-              #1 Real Estate Platform in UAE
+              #1 Real Estate Platform in Kuwait
             </Badge>
             
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
@@ -77,7 +77,7 @@ const Index = () => {
             </h1>
             
             <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto">
-              Discover luxury apartments with stunning views, modern amenities, and prime locations across the UAE. Your perfect home is just a click away.
+              Discover luxury apartments with stunning views, modern amenities, and prime locations across Kuwait. Your perfect home is just a click away.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -217,7 +217,7 @@ const Index = () => {
                 </div>
               </div>
               <p className="text-background/80">
-                Your trusted partner in finding the perfect home in the UAE.
+                Your trusted partner in finding the perfect home in Kuwait.
               </p>
             </div>
             
@@ -244,9 +244,9 @@ const Index = () => {
             <div>
               <h4 className="font-semibold mb-4">Contact</h4>
               <ul className="space-y-2 text-background/80">
-                <li>+971 4 123 4567</li>
-                <li>info@manzily.ae</li>
-                <li>Dubai, UAE</li>
+                <li>+965 2222 3333</li>
+                <li>info@manzily.kw</li>
+                <li>Kuwait City, Kuwait</li>
               </ul>
             </div>
           </div>
