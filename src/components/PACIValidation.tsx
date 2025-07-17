@@ -7,6 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import { CheckCircle, XCircle, MapPin, Building, Clock, Search, Loader2 } from 'lucide-react';
 import { paciService, PACIValidationResult } from '@/services/paciService';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 
 interface PACIValidationProps {
   className?: string;
@@ -21,6 +22,7 @@ const PACIValidation: React.FC<PACIValidationProps> = ({
   const [validationResult, setValidationResult] = useState<PACIValidationResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const handleValidation = async () => {
     if (!civilNumber.trim()) {
@@ -72,13 +74,13 @@ const PACIValidation: React.FC<PACIValidationProps> = ({
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Building className="h-5 w-5 text-secondary" />
-          PACI Property Validation
+          {t('paciPropertyValidation')}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
           <p className="text-sm text-muted-foreground mb-4">
-            Validate property civil numbers with Kuwait's Public Authority for Civil Information (PACI)
+            {t('paciDescription')}
           </p>
           
           <div className="flex gap-2">
@@ -98,7 +100,7 @@ const PACIValidation: React.FC<PACIValidationProps> = ({
               ) : (
                 <Search className="h-4 w-4" />
               )}
-              Validate
+              {t('validate')}
             </Button>
           </div>
         </div>
@@ -229,9 +231,9 @@ const PACIValidation: React.FC<PACIValidationProps> = ({
         )}
 
         <div className="text-xs text-muted-foreground pt-2 border-t border-border">
-          <p>✓ Connected to Kuwait PACI GIS System</p>
-          <p>✓ Real-time property validation</p>
-          <p>✓ Official government records</p>
+          <p>{t('connectedToPaci')}</p>
+          <p>{t('realTimeValidation')}</p>
+          <p>{t('officialRecords')}</p>
         </div>
       </CardContent>
     </Card>

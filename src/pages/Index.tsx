@@ -215,33 +215,32 @@ const Index = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <h3 className="text-2xl font-bold text-foreground mb-4">
-              Verified with Kuwait PACI GIS
+              {t('verifiedWithPaci')}
             </h3>
             <p className="text-muted-foreground mb-6">
-              All property locations are verified through Kuwait's Public Authority for Civil Information (PACI) 
-              Geographic Information System to ensure accuracy and prevent duplicate listings.
+              {t('paciVerificationDescription')}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="text-center">
                 <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-2">
                   <MapPin className="h-6 w-6 text-primary-foreground" />
                 </div>
-                <h4 className="font-semibold text-foreground">Accurate Locations</h4>
-                <p className="text-sm text-muted-foreground">Precise coordinates from official records</p>
+                <h4 className="font-semibold text-foreground">{t('accurateLocations')}</h4>
+                <p className="text-sm text-muted-foreground">{t('accurateLocationsDesc')}</p>
               </div>
               <div className="text-center">
                 <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-2">
                   <Building2 className="h-6 w-6 text-primary-foreground" />
                 </div>
-                <h4 className="font-semibold text-foreground">Verified Properties</h4>
-                <p className="text-sm text-muted-foreground">All listings validated with PACI</p>
+                <h4 className="font-semibold text-foreground">{t('verifiedProperties')}</h4>
+                <p className="text-sm text-muted-foreground">{t('verifiedPropertiesDesc')}</p>
               </div>
               <div className="text-center">
                 <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-2">
                   <Shield className="h-6 w-6 text-primary-foreground" />
                 </div>
-                <h4 className="font-semibold text-foreground">No Duplicates</h4>
-                <p className="text-sm text-muted-foreground">Civil numbers prevent duplicate listings</p>
+                <h4 className="font-semibold text-foreground">{t('noDuplicates')}</h4>
+                <p className="text-sm text-muted-foreground">{t('noDuplicatesDesc')}</p>
               </div>
             </div>
           </div>
@@ -254,10 +253,10 @@ const Index = () => {
           <div className="flex items-center justify-between mb-12">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Available Apartments
+                {t('availableApartments')}
               </h2>
               <p className="text-lg text-muted-foreground">
-                {filteredProperties.length} properties found
+                {filteredProperties.length} {t('propertiesFound')}
               </p>
             </div>
           </div>
@@ -305,38 +304,38 @@ const Index = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">Manzily</h3>
-                  <p className="text-sm text-background/70">Real Estate Platform</p>
+                  <p className="text-sm text-background/70">{t('realEstatePlatform')}</p>
                 </div>
               </div>
               <p className="text-background/80">
-                Your trusted partner in finding the perfect home in Kuwait.
+                {t('trustedPartner')}
               </p>
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Properties</h4>
+              <h4 className="font-semibold mb-4">{t('propertiesSection')}</h4>
               <ul className="space-y-2 text-background/80">
-                <li><a href="#" className="hover:text-background transition-colors">Apartments</a></li>
-                <li><a href="#" className="hover:text-background transition-colors">Studios</a></li>
-                <li><a href="#" className="hover:text-background transition-colors">Penthouses</a></li>
-                <li><a href="#" className="hover:text-background transition-colors">Duplexes</a></li>
+                <li><a href="#" className="hover:text-background transition-colors">{t('apartments')}</a></li>
+                <li><a href="#" className="hover:text-background transition-colors">{t('studios')}</a></li>
+                <li><a href="#" className="hover:text-background transition-colors">{t('penthouses')}</a></li>
+                <li><a href="#" className="hover:text-background transition-colors">{t('duplexes')}</a></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Services</h4>
+              <h4 className="font-semibold mb-4">{t('servicesSection')}</h4>
               <ul className="space-y-2 text-background/80">
-                <li><a href="#" className="hover:text-background transition-colors">Property Management</a></li>
-                <li><a href="#" className="hover:text-background transition-colors">Virtual Tours</a></li>
-                <li><a href="#" className="hover:text-background transition-colors">Investment Advice</a></li>
-                <li><a href="#" className="hover:text-background transition-colors">Legal Support</a></li>
+                <li><a href="#" className="hover:text-background transition-colors">{t('propertyManagement')}</a></li>
+                <li><a href="#" className="hover:text-background transition-colors">{t('virtualTours')}</a></li>
+                <li><a href="#" className="hover:text-background transition-colors">{t('investmentAdvice')}</a></li>
+                <li><a href="#" className="hover:text-background transition-colors">{t('legalSupport')}</a></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Contact</h4>
+              <h4 className="font-semibold mb-4">{t('contactSection')}</h4>
               <ul className="space-y-2 text-background/80">
-                <li>+965 2222 3333</li>
+                <li>3333 2222 965+</li>
                 <li>info@manzily.kw</li>
                 <li>Kuwait City, Kuwait</li>
               </ul>
@@ -344,7 +343,7 @@ const Index = () => {
           </div>
           
           <div className="border-t border-background/20 mt-12 pt-8 text-center text-background/60">
-            <p>&copy; 2024 Manzily Real Estate Platform. All rights reserved.</p>
+            <p>{t('allRightsReserved')}</p>
           </div>
         </div>
       </footer>

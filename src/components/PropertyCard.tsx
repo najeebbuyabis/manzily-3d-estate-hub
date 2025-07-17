@@ -91,7 +91,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             <p className="text-2xl font-bold text-primary">
               {currency} {price.toLocaleString()}
             </p>
-            <p className="text-sm text-muted-foreground">per month</p>
+            <p className="text-sm text-muted-foreground">{t('perMonth')}</p>
           </div>
         </div>
       </div>
@@ -107,7 +107,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
               <span className="text-sm">{location}</span>
             </div>
             <div className="text-xs text-muted-foreground/80 mt-1">
-              Civil ID: {civilNumber}
+              {t('civilId')} {civilNumber}
             </div>
           </div>
           

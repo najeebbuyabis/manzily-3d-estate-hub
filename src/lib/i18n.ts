@@ -90,6 +90,44 @@ const resources = {
       advanced: "Advanced",
       any: "Any",
       
+      // PACI Validation
+      paciPropertyValidation: "PACI Property Validation",
+      paciDescription: "Validate property civil numbers with Kuwait's Public Authority for Civil Information (PACI)",
+      validate: "Validate",
+      connectedToPaci: "Connected to Kuwait PACI GIS System ✓",
+      realTimeValidation: "Real-time property validation ✓",
+      officialRecords: "Official government records ✓",
+      propertyLocationMap: "Property Location Map",
+      mapboxTokenDescription: "To display property locations on the map, please enter your Mapbox public token. You can get one from mapbox.com",
+      loadMap: "Load Map",
+      enterMapboxToken: "Enter Mapbox public token",
+      verifiedWithPaci: "Verified with Kuwait PACI GIS",
+      paciVerificationDescription: "All property locations are verified through Kuwait's Public Authority for Civil Information (PACI) Geographic Information System to ensure accuracy and prevent duplicate listings",
+      noDuplicates: "No Duplicates",
+      verifiedProperties: "Verified Properties",
+      accurateLocations: "Accurate Locations",
+      noDuplicatesDesc: "Civil numbers prevent duplicate listings",
+      verifiedPropertiesDesc: "All listings validated with PACI",
+      accurateLocationsDesc: "Precise coordinates from official records",
+      
+      // Property listings
+      availableApartments: "Available Apartments",
+      propertiesFound: "properties found",
+      perMonth: "per month",
+      civilId: "Civil ID:",
+      
+      // Footer
+      contactSection: "Contact",
+      servicesSection: "Services",
+      propertiesSection: "Properties",
+      propertyManagement: "Property Management",
+      investmentAdvice: "Investment Advice",
+      legalSupport: "Legal Support",
+      studios: "Studios",
+      duplexes: "Duplexes",
+      trustedPartner: "Your trusted partner in finding the perfect home in Kuwait",
+      allRightsReserved: "Manzily Real Estate Platform. All rights reserved 2024 ©",
+      
       // Property listing
       noPropertiesFound: "No properties found",
       viewMap: "View Map",
@@ -187,6 +225,44 @@ const resources = {
       searchByLocation: "البحث حسب الموقع أو المنطقة",
       advanced: "متقدم",
       any: "أي",
+      
+      // PACI Validation
+      paciPropertyValidation: "التحقق من العقارات PACI",
+      paciDescription: "التحقق من أرقام العقارات المدنية مع الهيئة العامة للمعلومات المدنية في الكويت (PACI)",
+      validate: "تحقق",
+      connectedToPaci: "متصل بنظام PACI GIS الكويتي ✓",
+      realTimeValidation: "التحقق من العقار في الوقت الفعلي ✓",
+      officialRecords: "السجلات الحكومية الرسمية ✓",
+      propertyLocationMap: "خريطة مواقع العقارات",
+      mapboxTokenDescription: "لعرض مواقع العقارات على الخريطة، يرجى إدخال رمز Mapbox العام الخاص بك. يمكنك الحصول على واحد من mapbox.com",
+      loadMap: "تحميل الخريطة",
+      enterMapboxToken: "أدخل رمز Mapbox العام",
+      verifiedWithPaci: "متحقق منه مع PACI GIS الكويتي",
+      paciVerificationDescription: "يتم التحقق من جميع مواقع العقارات من خلال نظام المعلومات الجغرافية للهيئة العامة للمعلومات المدنية (PACI) في الكويت لضمان الدقة ومنع الإدراجات المكررة",
+      noDuplicates: "لا توجد مكررات",
+      verifiedProperties: "عقارات متحقق منها",
+      accurateLocations: "مواقع دقيقة",
+      noDuplicatesDesc: "الأرقام المدنية تمنع الإدراجات المكررة",
+      verifiedPropertiesDesc: "جميع الإدراجات متحقق منها مع PACI",
+      accurateLocationsDesc: "إحداثيات دقيقة من السجلات الرسمية",
+      
+      // Property listings
+      availableApartments: "الشقق المتاحة",
+      propertiesFound: "عقار موجود",
+      perMonth: "شهرياً",
+      civilId: "الرقم المدني:",
+      
+      // Footer
+      contactSection: "تواصل معنا",
+      servicesSection: "خدماتنا",
+      propertiesSection: "العقارات",
+      propertyManagement: "إدارة العقارات",
+      investmentAdvice: "نصائح الاستثمار",
+      legalSupport: "الدعم القانوني",
+      studios: "استوديوهات",
+      duplexes: "دوبلكس",
+      trustedPartner: "شريكك الموثوق في العثور على المنزل المثالي في الكويت",
+      allRightsReserved: "منصة منزلي العقارية. جميع الحقوق محفوظة 2024 ©",
       
       // Property listing
       noPropertiesFound: "لم يتم العثور على عقارات",
