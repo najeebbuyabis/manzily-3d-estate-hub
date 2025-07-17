@@ -10,6 +10,7 @@ import SearchFilters from "@/components/SearchFilters";
 import ChatAssistant from "@/components/ChatAssistant";
 import PropertyIntakeAssistant from "@/components/PropertyIntakeAssistant";
 import AdminModerationAssistant from "@/components/AdminModerationAssistant";
+import UserOnboarding from "@/components/UserOnboarding";
 
 import { mockProperties, getFeaturedProperties, getUniqueProperties, deduplicatePropertiesByCivilNumber, Property } from "@/data/mockProperties";
 import { Building2, Star, TrendingUp, Users, MapPin, ArrowRight, Shield } from "lucide-react";
@@ -26,6 +27,7 @@ interface FilterState {
 
 const Index = () => {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
     location: "",
     civilNumber: "",
@@ -96,9 +98,13 @@ const Index = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="hero" size="xl">
+              <Button 
+                variant="hero" 
+                size="xl"
+                onClick={() => setShowOnboarding(true)}
+              >
                 <Building2 className="h-5 w-5" />
-                Browse Properties
+                Get Started
               </Button>
               <Button variant="outline" size="xl" className="bg-background/20 border-primary-foreground/30 text-primary-foreground hover:bg-background/30">
                 <MapPin className="h-5 w-5" />
@@ -349,6 +355,16 @@ const Index = () => {
       
       {/* Admin Moderation Assistant */}
       <AdminModerationAssistant />
+      
+      {/* User Onboarding */}
+      <UserOnboarding 
+        isOpen={showOnboarding}
+        onClose={() => setShowOnboarding(false)}
+        onRoleSelected={(role) => {
+          console.log("User selected role:", role);
+          // Handle role selection (e.g., show relevant tools, navigate to specific sections)
+        }}
+      />
       
     </div>
   );
