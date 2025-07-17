@@ -247,6 +247,17 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
               )}
 
               <div className="space-y-2">
+                <Label htmlFor="phone">Phone Number</Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  placeholder="Enter your phone number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-2">
                 <Label htmlFor="signup-password">Password</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-3 h-4 w-4 text-trust-light" />
