@@ -43,6 +43,25 @@ const resources = {
       townhouse: "Townhouse",
       studio: "Studio",
       penthouse: "Penthouse",
+      house: "House",
+      farm: "Farm",
+      beachHouse: "Beach House",
+      stable: "Stable",
+      land: "Land",
+      
+      // Rental periods
+      daily: "Daily",
+      monthly: "Monthly",
+      yearly: "Yearly",
+      perDay: "per day",
+      perMonth: "per month",
+      perYear: "per year",
+      
+      // Listing types
+      forRent: "For Rent",
+      forSale: "For Sale",
+      listingType: "Listing Type",
+      rentalPeriod: "Rental Period",
       
       // Property details
       propertyDetails: "Property Details",
@@ -113,7 +132,6 @@ const resources = {
       // Property listings
       availableApartments: "Available Apartments",
       propertiesFound: "properties found",
-      perMonth: "per month",
       civilId: "Civil ID:",
       
       // Footer
@@ -179,6 +197,25 @@ const resources = {
       townhouse: "تاون هاوس",
       studio: "استوديو",
       penthouse: "بنتهاوس",
+      house: "منزل",
+      farm: "مزرعة",
+      beachHouse: "بيت شاطئي",
+      stable: "اسطبل",
+      land: "أرض",
+      
+      // Rental periods
+      daily: "يومي",
+      monthly: "شهري",
+      yearly: "سنوي",
+      perDay: "يومياً",
+      perMonth: "شهرياً",
+      perYear: "سنوياً",
+      
+      // Listing types
+      forRent: "للإيجار",
+      forSale: "للبيع",
+      listingType: "نوع الإعلان",
+      rentalPeriod: "فترة الإيجار",
       
       // Property details
       propertyDetails: "تفاصيل العقار",
@@ -249,7 +286,6 @@ const resources = {
       // Property listings
       availableApartments: "الشقق المتاحة",
       propertiesFound: "عقار موجود",
-      perMonth: "شهرياً",
       civilId: "الرقم المدني:",
       
       // Footer

@@ -21,16 +21,20 @@ interface FilterState {
   bedrooms: string;
   propertyType: string;
   area: string;
+  rentalPeriod: string;
+  listingType: string;
 }
 
 const getPropertyTypes = (t: any) => [
   { value: "apartment", label: t('apartment') },
   { value: "studio", label: t('studio') },
   { value: "penthouse", label: t('penthouse') },
-  { value: "duplex", label: "Duplex" },
-  { value: "house", label: "House" },
-  { value: "farm", label: "Farm" },
-  { value: "land", label: "Land" },
+  { value: "villa", label: t('villa') },
+  { value: "house", label: t('house') },
+  { value: "farm", label: t('farm') },
+  { value: "beach house", label: t('beachHouse') },
+  { value: "stable", label: t('stable') },
+  { value: "land", label: t('land') },
   { value: "land exchange", label: "Land Exchange" },
 ];
 
@@ -40,6 +44,19 @@ const getBedroomOptions = (t: any) => [
   { value: "2", label: `2 ${t('bedrooms')}` },
   { value: "3", label: `3 ${t('bedrooms')}` },
   { value: "4+", label: `4+ ${t('bedrooms')}` },
+];
+
+const getRentalPeriodOptions = (t: any) => [
+  { value: "any", label: t('any') },
+  { value: "daily", label: t('daily') },
+  { value: "monthly", label: t('monthly') },
+  { value: "yearly", label: t('yearly') },
+];
+
+const getListingTypeOptions = (t: any) => [
+  { value: "any", label: t('any') },
+  { value: "rent", label: t('forRent') },
+  { value: "sale", label: t('forSale') },
 ];
 
 export const SearchFilters: React.FC<SearchFiltersProps> = ({ 
@@ -55,6 +72,8 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
     bedrooms: "any",
     propertyType: "apartment",
     area: "",
+    rentalPeriod: "any",
+    listingType: "any",
   });
 
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -74,6 +93,8 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
       bedrooms: "any",
       propertyType: "apartment",
       area: "",
+      rentalPeriod: "any",
+      listingType: "any",
     };
     setFilters(clearedFilters);
     onFiltersChange?.(clearedFilters);
@@ -124,6 +145,32 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
             </SelectTrigger>
             <SelectContent>
               {getBedroomOptions(t).map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={filters.listingType} onValueChange={(value) => updateFilter("listingType", value)}>
+            <SelectTrigger className="w-40">
+              <SelectValue placeholder={t('listingType')} />
+            </SelectTrigger>
+            <SelectContent>
+              {getListingTypeOptions(t).map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={filters.rentalPeriod} onValueChange={(value) => updateFilter("rentalPeriod", value)}>
+            <SelectTrigger className="w-40">
+              <SelectValue placeholder={t('rentalPeriod')} />
+            </SelectTrigger>
+            <SelectContent>
+              {getRentalPeriodOptions(t).map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.label}
                 </SelectItem>

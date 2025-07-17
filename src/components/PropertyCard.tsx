@@ -22,6 +22,8 @@ interface PropertyCardProps {
   featured?: boolean;
   className?: string;
   onClick?: () => void;
+  rentalPeriod?: 'daily' | 'monthly' | 'yearly';
+  listingType?: 'sale' | 'rent';
 }
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({
@@ -39,6 +41,8 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   featured = false,
   className,
   onClick,
+  rentalPeriod,
+  listingType,
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -90,8 +94,14 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           <div className="bg-background/95 backdrop-blur-sm rounded-lg p-3 border border-border/50">
             <p className="text-2xl font-bold text-primary">
               {currency} {price.toLocaleString()}
+              {rentalPeriod && (
+                <span className="text-sm font-normal text-muted-foreground ml-1">
+                  {rentalPeriod === 'daily' && t('perDay')}
+                  {rentalPeriod === 'monthly' && t('perMonth')}
+                  {rentalPeriod === 'yearly' && t('perYear')}
+                </span>
+              )}
             </p>
-            <p className="text-sm text-muted-foreground">{t('perMonth')}</p>
           </div>
         </div>
       </div>

@@ -24,6 +24,8 @@ interface FilterState {
   bedrooms: string;
   propertyType: string;
   area: string;
+  rentalPeriod: string;
+  listingType: string;
 }
 
 const Index = () => {
@@ -38,6 +40,8 @@ const Index = () => {
     bedrooms: "any",
     propertyType: "apartment",
     area: "",
+    rentalPeriod: "any",
+    listingType: "any",
   });
 
   const filteredProperties = useMemo(() => {
@@ -61,8 +65,15 @@ const Index = () => {
       const minPriceMatch = !filters.minPrice || property.price >= parseInt(filters.minPrice);
       const maxPriceMatch = !filters.maxPrice || property.price <= parseInt(filters.maxPrice);
       const areaMatch = !filters.area || property.area >= parseInt(filters.area);
+      
+      const rentalPeriodMatch = filters.rentalPeriod === "any" || 
+        property.rentalPeriod === filters.rentalPeriod;
+      
+      const listingTypeMatch = filters.listingType === "any" || 
+        property.listingType === filters.listingType;
 
-      return locationMatch && civilNumberMatch && typeMatch && bedroomMatch && minPriceMatch && maxPriceMatch && areaMatch;
+      return locationMatch && civilNumberMatch && typeMatch && bedroomMatch && 
+             minPriceMatch && maxPriceMatch && areaMatch && rentalPeriodMatch && listingTypeMatch;
     });
   }, [filters]);
 
@@ -285,6 +296,8 @@ const Index = () => {
                 bedrooms: "any",
                 propertyType: "apartment",
                 area: "",
+                rentalPeriod: "any",
+                listingType: "any",
               })}>
                 Clear Filters
               </Button>

@@ -31,6 +31,8 @@ export interface Property {
   amenities?: string[];
   agentName?: string;
   agentPhone?: string;
+  rentalPeriod?: 'daily' | 'monthly' | 'yearly'; // New field for rental periods
+  listingType?: 'sale' | 'rent'; // To distinguish between sales and rentals
 }
 
 export const mockProperties: Property[] = [
@@ -193,6 +195,8 @@ export const mockProperties: Property[] = [
     type: "Farm",
     image: farm1,
     featured: false,
+    listingType: "rent",
+    rentalPeriod: "monthly",
     description: "Large agricultural farm land perfect for crop cultivation with irrigation systems and storage facilities.",
     amenities: ["Irrigation System", "Storage Facilities", "Machinery Shed", "Well Water", "Fertile Soil"],
     agentName: "Abdullah Al-Mutairi",
@@ -211,10 +215,94 @@ export const mockProperties: Property[] = [
     type: "Farm",
     image: farm2,
     featured: true,
+    listingType: "rent",
+    rentalPeriod: "yearly",
     description: "Spacious livestock farm with animal shelters, grazing areas, and residential quarters for farm management.",
     amenities: ["Animal Shelters", "Grazing Areas", "Residential Quarters", "Feed Storage", "Veterinary Area"],
     agentName: "Salem Al-Dosari",
     agentPhone: "+965 9000 5555"
+  },
+  // Beach Houses for Rent
+  {
+    id: "15",
+    title: "Luxury Beach House Rental",
+    location: "Messila Beach, Kuwait",
+    civilNumber: "11223344",
+    price: 150,
+    currency: "KWD",
+    bedrooms: 3,
+    bathrooms: 2,
+    area: 200,
+    type: "Beach House",
+    image: apartment5, // Using existing image for now
+    featured: true,
+    listingType: "rent",
+    rentalPeriod: "daily",
+    description: "Beautiful beachfront house perfect for weekend getaways and family vacations with private beach access.",
+    amenities: ["Private Beach Access", "Swimming Pool", "BBQ Area", "Parking", "WiFi"],
+    agentName: "Marina Al-Khalili",
+    agentPhone: "+965 8555 0123"
+  },
+  {
+    id: "16",
+    title: "Seaside Villa with Pool",
+    location: "Khiran, Kuwait",
+    civilNumber: "55443322",
+    price: 2800,
+    currency: "KWD",
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 350,
+    type: "Beach House",
+    image: house1,
+    featured: false,
+    listingType: "rent",
+    rentalPeriod: "monthly",
+    description: "Spacious beach villa with private pool and garden, ideal for monthly stays and family gatherings.",
+    amenities: ["Private Pool", "Garden", "Beach Access", "Parking", "Furnished"],
+    agentName: "Rashid Al-Otaibi",
+    agentPhone: "+965 8444 5678"
+  },
+  // Stables for Rent
+  {
+    id: "17",
+    title: "Horse Riding Stable Complex",
+    location: "Kabd, Kuwait",
+    civilNumber: "99887766",
+    price: 1200,
+    currency: "KWD",
+    bedrooms: 0,
+    bathrooms: 2,
+    area: 1500,
+    type: "Stable",
+    image: farm1,
+    featured: false,
+    listingType: "rent",
+    rentalPeriod: "monthly",
+    description: "Professional horse stable complex with training facilities and equipment storage areas.",
+    amenities: ["Horse Stalls", "Training Arena", "Feed Storage", "Equipment Room", "Water Systems"],
+    agentName: "Khaled Al-Hajri",
+    agentPhone: "+965 8333 9012"
+  },
+  {
+    id: "18",
+    title: "Premium Equestrian Facility",
+    location: "Kabd, Kuwait",
+    civilNumber: "77665544",
+    price: 15000,
+    currency: "KWD",
+    bedrooms: 1,
+    bathrooms: 3,
+    area: 2500,
+    type: "Stable",
+    image: farm2,
+    featured: true,
+    listingType: "rent",
+    rentalPeriod: "yearly",
+    description: "High-end equestrian facility with professional training grounds and luxury amenities for serious horse enthusiasts.",
+    amenities: ["Professional Arena", "VIP Lounge", "Veterinary Clinic", "Boarding Facilities", "Training Equipment"],
+    agentName: "Nadia Al-Sabah",
+    agentPhone: "+965 8222 3456"
   },
   // Lands for Sale
   {
