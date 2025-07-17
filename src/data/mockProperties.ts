@@ -147,3 +147,20 @@ export const getPropertiesByType = (type: string): Property[] => {
 export const getFeaturedProperties = (): Property[] => {
   return mockProperties.filter(property => property.featured);
 };
+
+// Deduplicate properties by civil number to prevent agents from showing the same property
+export const deduplicatePropertiesByCivilNumber = (properties: Property[]): Property[] => {
+  const seen = new Set<string>();
+  return properties.filter(property => {
+    if (seen.has(property.civilNumber)) {
+      return false;
+    }
+    seen.add(property.civilNumber);
+    return true;
+  });
+};
+
+// Get unique properties (deduplicated by civil number)
+export const getUniqueProperties = (): Property[] => {
+  return deduplicatePropertiesByCivilNumber(mockProperties);
+};

@@ -14,6 +14,7 @@ interface SearchFiltersProps {
 
 interface FilterState {
   location: string;
+  civilNumber: string;
   minPrice: string;
   maxPrice: string;
   bedrooms: string;
@@ -42,6 +43,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
 }) => {
   const [filters, setFilters] = useState<FilterState>({
     location: "",
+    civilNumber: "",
     minPrice: "",
     maxPrice: "",
     bedrooms: "any",
@@ -60,6 +62,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
   const clearFilters = () => {
     const clearedFilters: FilterState = {
       location: "",
+      civilNumber: "",
       minPrice: "",
       maxPrice: "",
       bedrooms: "any",
@@ -146,7 +149,15 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
 
         {/* Advanced filters */}
         {showAdvanced && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-border">
+            <div>
+              <label className="text-sm font-medium text-foreground mb-2 block">Civil Number</label>
+              <Input
+                placeholder="Search by Civil ID"
+                value={filters.civilNumber}
+                onChange={(e) => updateFilter("civilNumber", e.target.value)}
+              />
+            </div>
             <div>
               <label className="text-sm font-medium text-foreground mb-2 block">Min Price</label>
               <Input

@@ -5,11 +5,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
 import PropertyCard from "@/components/PropertyCard";
 import SearchFilters from "@/components/SearchFilters";
-import { mockProperties, getFeaturedProperties } from "@/data/mockProperties";
+import { mockProperties, getFeaturedProperties, getUniqueProperties, deduplicatePropertiesByCivilNumber } from "@/data/mockProperties";
 import { Building2, Star, TrendingUp, Users, MapPin, ArrowRight } from "lucide-react";
 
 interface FilterState {
   location: string;
+  civilNumber: string;
   minPrice: string;
   maxPrice: string;
   bedrooms: string;
@@ -20,6 +21,7 @@ interface FilterState {
 const Index = () => {
   const [filters, setFilters] = useState<FilterState>({
     location: "",
+    civilNumber: "",
     minPrice: "",
     maxPrice: "",
     bedrooms: "any",
@@ -28,9 +30,15 @@ const Index = () => {
   });
 
   const filteredProperties = useMemo(() => {
-    return mockProperties.filter(property => {
+    // First get unique properties to prevent duplicates based on civil number
+    const uniqueProperties = getUniqueProperties();
+    
+    return uniqueProperties.filter(property => {
       const locationMatch = !filters.location || 
         property.location.toLowerCase().includes(filters.location.toLowerCase());
+      
+      const civilNumberMatch = !filters.civilNumber ||
+        property.civilNumber.includes(filters.civilNumber);
       
       const typeMatch = !filters.propertyType || filters.propertyType === "apartment" ||
         property.type.toLowerCase() === filters.propertyType.toLowerCase();
@@ -43,11 +51,11 @@ const Index = () => {
       const maxPriceMatch = !filters.maxPrice || property.price <= parseInt(filters.maxPrice);
       const areaMatch = !filters.area || property.area >= parseInt(filters.area);
 
-      return locationMatch && typeMatch && bedroomMatch && minPriceMatch && maxPriceMatch && areaMatch;
+      return locationMatch && civilNumberMatch && typeMatch && bedroomMatch && minPriceMatch && maxPriceMatch && areaMatch;
     });
   }, [filters]);
 
-  const featuredProperties = getFeaturedProperties();
+  const featuredProperties = deduplicatePropertiesByCivilNumber(getFeaturedProperties());
 
   const stats = [
     { icon: Building2, label: "Properties", value: "2,500+" },
@@ -189,6 +197,7 @@ const Index = () => {
               <p className="text-muted-foreground mb-6">Try adjusting your search filters to see more results</p>
               <Button onClick={() => setFilters({
                 location: "",
+                civilNumber: "",
                 minPrice: "",
                 maxPrice: "",
                 bedrooms: "any",
