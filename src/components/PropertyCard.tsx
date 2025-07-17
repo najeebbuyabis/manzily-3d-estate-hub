@@ -20,6 +20,7 @@ interface PropertyCardProps {
   image: string;
   featured?: boolean;
   className?: string;
+  onClick?: () => void;
 }
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({
@@ -36,6 +37,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   image,
   featured = false,
   className,
+  onClick,
 }) => {
   const navigate = useNavigate();
   return (
@@ -45,7 +47,10 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
         featured && "ring-2 ring-secondary ring-offset-2",
         className
       )}
-      onClick={() => navigate(`/property/${id}`)}
+      onClick={() => {
+        navigate(`/property/${id}`);
+        onClick?.();
+      }}
     >
       <div className="relative overflow-hidden">
         <img

@@ -4,9 +4,11 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
 import PropertyCard from "@/components/PropertyCard";
+import PropertyMap from "@/components/PropertyMap";
+import PACIValidation from "@/components/PACIValidation";
 import SearchFilters from "@/components/SearchFilters";
-import { mockProperties, getFeaturedProperties, getUniqueProperties, deduplicatePropertiesByCivilNumber } from "@/data/mockProperties";
-import { Building2, Star, TrendingUp, Users, MapPin, ArrowRight } from "lucide-react";
+import { mockProperties, getFeaturedProperties, getUniqueProperties, deduplicatePropertiesByCivilNumber, Property } from "@/data/mockProperties";
+import { Building2, Star, TrendingUp, Users, MapPin, ArrowRight, Shield } from "lucide-react";
 
 interface FilterState {
   location: string;
@@ -19,6 +21,7 @@ interface FilterState {
 }
 
 const Index = () => {
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [filters, setFilters] = useState<FilterState>({
     location: "",
     civilNumber: "",
@@ -167,6 +170,72 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Property Map Section */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Property Locations
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Interactive map showing property locations verified with Kuwait PACI GIS data
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <PropertyMap 
+                properties={filteredProperties} 
+                selectedProperty={selectedProperty}
+                onPropertySelect={setSelectedProperty}
+                className="max-w-full"
+              />
+            </div>
+            <div>
+              <PACIValidation className="h-fit" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PACI Integration Info */}
+      <section className="py-12 bg-accent/30">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <h3 className="text-2xl font-bold text-foreground mb-4">
+              Verified with Kuwait PACI GIS
+            </h3>
+            <p className="text-muted-foreground mb-6">
+              All property locations are verified through Kuwait's Public Authority for Civil Information (PACI) 
+              Geographic Information System to ensure accuracy and prevent duplicate listings.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="text-center">
+                <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-2">
+                  <MapPin className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h4 className="font-semibold text-foreground">Accurate Locations</h4>
+                <p className="text-sm text-muted-foreground">Precise coordinates from official records</p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-2">
+                  <Building2 className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h4 className="font-semibold text-foreground">Verified Properties</h4>
+                <p className="text-sm text-muted-foreground">All listings validated with PACI</p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-2">
+                  <Shield className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h4 className="font-semibold text-foreground">No Duplicates</h4>
+                <p className="text-sm text-muted-foreground">Civil numbers prevent duplicate listings</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* All Properties */}
       <section className="py-16 bg-accent/30">
         <div className="container mx-auto px-4 lg:px-8">
@@ -186,6 +255,8 @@ const Index = () => {
               <PropertyCard
                 key={property.id}
                 {...property}
+                className={selectedProperty?.id === property.id ? "ring-2 ring-secondary" : ""}
+                onClick={() => setSelectedProperty(property)}
               />
             ))}
           </div>

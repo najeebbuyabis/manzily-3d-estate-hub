@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Header from "@/components/Header";
+import PropertyMap from "@/components/PropertyMap";
 import { getPropertyById } from "@/data/mockProperties";
 import { 
   MapPin, 
@@ -229,6 +230,20 @@ const PropertyDetail: React.FC = () => {
                     Schedule Viewing
                   </Button>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* Property Location Map */}
+            <Card className="bg-gradient-card border-border/50">
+              <CardHeader>
+                <CardTitle>Property Location</CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <PropertyMap 
+                  properties={[property]} 
+                  selectedProperty={property}
+                  className="border-none"
+                />
               </CardContent>
             </Card>
           </div>
