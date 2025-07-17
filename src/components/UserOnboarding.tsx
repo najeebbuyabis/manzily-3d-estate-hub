@@ -54,10 +54,10 @@ const languages = [
 const roles: UserRole[] = [
   {
     id: "buyer",
-    title: "Buyer",
-    titleAr: "مشتري",
-    description: "Looking for your perfect property",
-    descriptionAr: "تبحث عن العقار المثالي",
+    title: "Buyer / Renter",
+    titleAr: "مشتري / مستأجر",
+    description: "Looking to buy or rent your perfect property",
+    descriptionAr: "تبحث لشراء أو استئجار العقار المثالي",
     icon: Search,
     color: "bg-blue-500",
     actions: [
@@ -65,8 +65,8 @@ const roles: UserRole[] = [
         label: "Browse Properties",
         labelAr: "تصفح العقارات",
         icon: Building2,
-        description: "Explore available properties",
-        descriptionAr: "استكشف العقارات المتاحة"
+        description: "Explore properties for sale and rent",
+        descriptionAr: "استكشف العقارات للبيع والإيجار"
       },
       {
         label: "Get AI Assistance",
