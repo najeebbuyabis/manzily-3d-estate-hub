@@ -93,6 +93,30 @@ export default function Admin() {
     );
   }
 
+  // Fetch subscription statistics
+  const { data: subscriptionStats } = useQuery({
+    queryKey: ["admin-subscription-stats"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("subscribers")
+        .select("subscribed, subscription_tier");
+      
+      if (error) throw error;
+      
+      const totalSubscribed = data?.filter(s => s.subscribed).length || 0;
+      const totalUsers = data?.length || 0;
+      const tierCounts = data?.reduce((acc, sub) => {
+        if (sub.subscribed && sub.subscription_tier) {
+          acc[sub.subscription_tier] = (acc[sub.subscription_tier] || 0) + 1;
+        }
+        return acc;
+      }, {} as Record<string, number>) || {};
+      
+      return { totalSubscribed, totalUsers, tierCounts };
+    },
+    enabled: isAdmin,
+  });
+
   // Fetch developers
   const { data: developers, isLoading, refetch } = useQuery({
     queryKey: ["admin-developers"],
@@ -257,49 +281,102 @@ export default function Admin() {
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Total Developers</CardTitle>
-                    <Building2 className="h-4 w-4 text-muted-foreground" />
+                    <CardTitle className="text-sm font-medium">Total Subscribers</CardTitle>
+                    <Users className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{developers?.length || 0}</div>
+                    <div className="text-2xl font-bold">{subscriptionStats?.totalSubscribed || 0}</div>
                     <p className="text-xs text-muted-foreground">
-                      {developers?.filter(d => d.is_active).length || 0} active
+                      out of {subscriptionStats?.totalUsers || 0} total users
                     </p>
                   </CardContent>
                 </Card>
                 
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Featured Developers</CardTitle>
-                    <Users className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">
-                      {developers?.filter(d => d.is_featured).length || 0}
-                    </div>
-                    <p className="text-xs text-muted-foreground">Currently featured</p>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Active Commissions</CardTitle>
+                    <CardTitle className="text-sm font-medium">Premium Subscribers</CardTitle>
                     <DollarSign className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">-</div>
-                    <p className="text-xs text-muted-foreground">View in Commissions tab</p>
+                    <div className="text-2xl font-bold">
+                      {subscriptionStats?.tierCounts?.Premium || 0}
+                    </div>
+                    <p className="text-xs text-muted-foreground">Premium plan subscribers</p>
                   </CardContent>
                 </Card>
 
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">System Status</CardTitle>
+                    <CardTitle className="text-sm font-medium">Basic Subscribers</CardTitle>
+                    <Building2 className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">
+                      {subscriptionStats?.tierCounts?.Basic || 0}
+                    </div>
+                    <p className="text-xs text-muted-foreground">Basic plan subscribers</p>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Enterprise Subscribers</CardTitle>
                     <Shield className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-green-600">Online</div>
-                    <p className="text-xs text-muted-foreground">All systems operational</p>
+                    <div className="text-2xl font-bold">
+                      {subscriptionStats?.tierCounts?.Enterprise || 0}
+                    </div>
+                    <p className="text-xs text-muted-foreground">Enterprise plan subscribers</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Subscription Breakdown</CardTitle>
+                    <CardDescription>Current subscription tier distribution</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {Object.entries(subscriptionStats?.tierCounts || {}).map(([tier, count]) => (
+                        <div key={tier} className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <Badge variant="outline">{tier}</Badge>
+                          </div>
+                          <div className="font-medium">{count} subscribers</div>
+                        </div>
+                      ))}
+                      {Object.keys(subscriptionStats?.tierCounts || {}).length === 0 && (
+                        <p className="text-muted-foreground text-center py-4">
+                          No active subscriptions found
+                        </p>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Developer Statistics</CardTitle>
+                    <CardDescription>Developer platform metrics</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span>Total Developers</span>
+                        <Badge variant="secondary">{developers?.length || 0}</Badge>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span>Active Developers</span>
+                        <Badge variant="default">{developers?.filter(d => d.is_active).length || 0}</Badge>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span>Featured Developers</span>
+                        <Badge variant="outline">{developers?.filter(d => d.is_featured).length || 0}</Badge>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
