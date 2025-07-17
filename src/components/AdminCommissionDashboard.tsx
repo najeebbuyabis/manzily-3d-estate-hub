@@ -58,11 +58,12 @@ const AdminCommissionDashboard: React.FC = () => {
     setLoading(true);
     try {
       let query = supabase
-        .from("commission_logs")
+        .from("commissions")
         .select(`
           *,
-          user_profiles:agent_id (
+          profiles:agent_id (
             company_name,
+            full_name,
             phone
           )
         `)
