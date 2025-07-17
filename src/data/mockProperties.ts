@@ -11,6 +11,8 @@ import farm1 from "@/assets/farm-1.jpg";
 import farm2 from "@/assets/farm-2.jpg";
 import land1 from "@/assets/land-1.jpg";
 import land2 from "@/assets/land-2.jpg";
+import landExchange1 from "@/assets/land-exchange-1.jpg";
+import landExchange2 from "@/assets/land-exchange-2.jpg";
 
 export interface Property {
   id: string;
@@ -250,6 +252,43 @@ export const mockProperties: Property[] = [
     amenities: ["Commercial Zone", "High Visibility", "Main Road Access", "Investment Opportunity", "Large Area"],
     agentName: "Reem Al-Zahra",
     agentPhone: "+965 8888 7777"
+  },
+  // Land for Exchange with PAWH Application
+  {
+    id: "13",
+    title: "Land Exchange - PAWH Application Available",
+    location: "Sulaibiya, Kuwait",
+    civilNumber: "12309876",
+    price: 0, // No monetary price for exchange
+    currency: "KWD",
+    bedrooms: 0,
+    bathrooms: 0,
+    area: 900,
+    type: "Land Exchange",
+    image: landExchange1,
+    featured: true,
+    description: "Land plot available for exchange with existing PAWH application. Perfect opportunity for property swap with approved documentation.",
+    amenities: ["PAWH Application Approved", "Ready for Exchange", "Clear Title", "Survey Completed", "Utilities Planned"],
+    agentName: "Mansour Al-Khalidi",
+    agentPhone: "+965 7777 8888"
+  },
+  {
+    id: "14",
+    title: "Premium Land Exchange - Government Application",
+    location: "Jleeb Al-Shuyoukh, Kuwait",
+    civilNumber: "54321098",
+    price: 0, // No monetary price for exchange
+    currency: "KWD",
+    bedrooms: 0,
+    bathrooms: 0,
+    area: 1500,
+    type: "Land Exchange",
+    image: landExchange2,
+    featured: false,
+    description: "Large land plot with government application ready for exchange. Excellent location with all approvals in place.",
+    amenities: ["Government Approved", "Large Plot", "Exchange Ready", "Documentation Complete", "Prime Location"],
+    agentName: "Dalal Al-Mahmoud",
+    agentPhone: "+965 6666 9999"
   }
 ];
 
