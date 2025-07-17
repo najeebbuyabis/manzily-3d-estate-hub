@@ -104,9 +104,9 @@ export const Header: React.FC = () => {
                   {isAdmin && (
                     <>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={() => navigate('/admin/developers')}>
+                      <DropdownMenuItem onClick={() => navigate('/admin')}>
                         <Users className="mr-2 h-4 w-4" />
-                        Manage Developers
+                        Admin Dashboard
                       </DropdownMenuItem>
                     </>
                   )}
