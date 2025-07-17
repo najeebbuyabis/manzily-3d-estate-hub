@@ -91,9 +91,9 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
       } else {
         // Create user profile
         const { error: profileError } = await supabase
-          .from("user_profiles")
+          .from("profiles")
           .insert({
-            id: data.user?.id,
+            user_id: data.user?.id,
             role,
             company_name: companyName || null,
             phone: phone || null,

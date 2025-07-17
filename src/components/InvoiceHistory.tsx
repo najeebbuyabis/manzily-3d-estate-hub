@@ -61,7 +61,7 @@ const InvoiceHistory: React.FC = () => {
       const { data, error } = await query;
 
       if (error) throw error;
-      setInvoices(data || []);
+      setInvoices((data as any) || []);
     } catch (error) {
       console.error("Error fetching invoices:", error);
       toast.error("Failed to load invoice history");

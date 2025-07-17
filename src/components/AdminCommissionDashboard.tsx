@@ -76,7 +76,7 @@ const AdminCommissionDashboard: React.FC = () => {
       const { data, error } = await query;
 
       if (error) throw error;
-      setCommissions(data || []);
+      setCommissions((data as any) || []);
     } catch (error) {
       console.error("Error fetching commissions:", error);
       toast.error("Failed to load commission data");

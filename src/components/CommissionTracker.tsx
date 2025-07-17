@@ -52,13 +52,13 @@ const CommissionTracker: React.FC = () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from("commission_logs")
+        .from("commissions")
         .select("*")
         .eq("agent_id", user.id)
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setCommissions(data || []);
+      setCommissions((data as any) || []);
     } catch (error) {
       console.error("Error fetching commissions:", error);
       toast.error("Failed to load commission data");
