@@ -73,6 +73,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
         if (session?.user) {
           await checkSubscription();
+          
+          // Check for stored role selection and apply it
+          const storedRole = localStorage.getItem('selectedRole');
+          if (storedRole) {
+            try {
+              const { error } = await supabase
+                .from("profiles")
+                .update({ role: storedRole })
+                .eq("user_id", session.user.id);
+              
+              if (!error) {
+                localStorage.removeItem('selectedRole');
+                console.log('Applied stored role:', storedRole);
+              }
+            } catch (error) {
+              console.error('Error applying stored role:', error);
+            }
+          }
         }
       } else if (event === 'SIGNED_OUT') {
         setSubscription(null);
