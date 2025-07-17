@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "@/hooks/use-toast";
 import { Users, Building2, DollarSign, Settings, Plus, Pencil, Trash2, Shield, BarChart3 } from "lucide-react";
+import DeveloperAssistant from "@/components/DeveloperAssistant";
 
 interface Developer {
   id: string;
@@ -615,6 +616,9 @@ export default function Admin() {
           </Tabs>
         </div>
       </div>
+      
+      {/* Developer Assistant */}
+      <DeveloperAssistant />
     </div>
   );
 }
