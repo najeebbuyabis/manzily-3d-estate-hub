@@ -1,10 +1,14 @@
-// Mock data for apartment properties
+// Mock data for properties
 import apartment1 from "@/assets/apartment-1.jpg";
 import apartment2 from "@/assets/apartment-2.jpg";
 import apartment3 from "@/assets/apartment-3.jpg";
 import apartment4 from "@/assets/apartment-4.jpg";
 import apartment5 from "@/assets/apartment-5.jpg";
 import apartment6 from "@/assets/apartment-6.jpg";
+import house1 from "@/assets/house-1.jpg";
+import house2 from "@/assets/house-2.jpg";
+import farm1 from "@/assets/farm-1.jpg";
+import farm2 from "@/assets/farm-2.jpg";
 
 export interface Property {
   id: string;
@@ -133,6 +137,80 @@ export const mockProperties: Property[] = [
     amenities: ["Parking", "Garden", "Schools", "Shopping"],
     agentName: "Khalid Al-Ajmi",
     agentPhone: "+965 9444 2468"
+  },
+  // Houses for Sale
+  {
+    id: "7",
+    title: "Traditional Kuwaiti House",
+    location: "Kaifan, Kuwait",
+    civilNumber: "78901234",
+    price: 280000,
+    currency: "KWD",
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 400,
+    type: "House",
+    image: house1,
+    featured: true,
+    description: "Beautiful traditional Kuwaiti house with authentic architecture, private courtyard, and modern renovations.",
+    amenities: ["Private Courtyard", "Traditional Design", "Parking", "Garden", "Storage"],
+    agentName: "Hassan Al-Kuwari",
+    agentPhone: "+965 9333 1111"
+  },
+  {
+    id: "8",
+    title: "Modern Luxury Villa",
+    location: "Mishref, Kuwait",
+    civilNumber: "90123456",
+    price: 450000,
+    currency: "KWD",
+    bedrooms: 5,
+    bathrooms: 4,
+    area: 600,
+    type: "House",
+    image: house2,
+    featured: true,
+    description: "Contemporary luxury villa with premium finishes, landscaped gardens, and state-of-the-art amenities.",
+    amenities: ["Swimming Pool", "Landscaped Garden", "Garage", "Modern Kitchen", "Smart Home"],
+    agentName: "Noura Al-Sabhan",
+    agentPhone: "+965 9222 3333"
+  },
+  // Farms for Rent
+  {
+    id: "9",
+    title: "Agricultural Farm Land",
+    location: "Wafra, Kuwait",
+    civilNumber: "34567890",
+    price: 2500,
+    currency: "KWD",
+    bedrooms: 0,
+    bathrooms: 1,
+    area: 5000,
+    type: "Farm",
+    image: farm1,
+    featured: false,
+    description: "Large agricultural farm land perfect for crop cultivation with irrigation systems and storage facilities.",
+    amenities: ["Irrigation System", "Storage Facilities", "Machinery Shed", "Well Water", "Fertile Soil"],
+    agentName: "Abdullah Al-Mutairi",
+    agentPhone: "+965 9111 4444"
+  },
+  {
+    id: "10",
+    title: "Livestock Farm Property",
+    location: "Abdali, Kuwait",
+    civilNumber: "56789013",
+    price: 3200,
+    currency: "KWD",
+    bedrooms: 1,
+    bathrooms: 2,
+    area: 8000,
+    type: "Farm",
+    image: farm2,
+    featured: true,
+    description: "Spacious livestock farm with animal shelters, grazing areas, and residential quarters for farm management.",
+    amenities: ["Animal Shelters", "Grazing Areas", "Residential Quarters", "Feed Storage", "Veterinary Area"],
+    agentName: "Salem Al-Dosari",
+    agentPhone: "+965 9000 5555"
   }
 ];
 
