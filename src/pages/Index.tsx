@@ -7,6 +7,7 @@ import PropertyCard from "@/components/PropertyCard";
 import PropertyMap from "@/components/PropertyMap";
 import PACIValidation from "@/components/PACIValidation";
 import SearchFilters from "@/components/SearchFilters";
+import ChatAssistant from "@/components/ChatAssistant";
 import { mockProperties, getFeaturedProperties, getUniqueProperties, deduplicatePropertiesByCivilNumber, Property } from "@/data/mockProperties";
 import { Building2, Star, TrendingUp, Users, MapPin, ArrowRight, Shield } from "lucide-react";
 
@@ -336,6 +337,9 @@ const Index = () => {
           </div>
         </div>
       </footer>
+      
+      {/* Chat Assistant */}
+      <ChatAssistant />
     </div>
   );
 };
