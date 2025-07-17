@@ -159,10 +159,22 @@ const PropertyIntakeAssistant = () => {
       addMessage(inputValue, 'user');
     }
 
-    if (currentStep < steps.length - 1) {
+    // Auto-set bedrooms to 0 for land and studio properties
+    const isLandOrStudio = propertyData.propertyType?.toLowerCase().includes('land') || 
+                          propertyData.propertyType?.toLowerCase() === 'studio';
+    
+    let nextStep = currentStep + 1;
+    
+    // Skip bedrooms question for land and studio properties
+    if (nextStep < steps.length && steps[nextStep].key === 'bedrooms' && isLandOrStudio) {
+      setPropertyData(prev => ({ ...prev, bedrooms: '0' }));
+      nextStep++;
+    }
+
+    if (nextStep < steps.length) {
       setTimeout(() => {
-        setCurrentStep(prev => prev + 1);
-        addMessage(steps[currentStep + 1].question, 'bot');
+        setCurrentStep(nextStep);
+        addMessage(steps[nextStep].question, 'bot');
       }, 500);
     } else {
       setTimeout(() => {
