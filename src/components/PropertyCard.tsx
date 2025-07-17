@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Bed, Bath, Square, Heart, Phone, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 interface PropertyCardProps {
   id: string;
@@ -34,12 +35,16 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   featured = false,
   className,
 }) => {
+  const navigate = useNavigate();
   return (
-    <Card className={cn(
-      "group overflow-hidden transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1 bg-gradient-card border-border/50",
-      featured && "ring-2 ring-secondary ring-offset-2",
-      className
-    )}>
+    <Card 
+      className={cn(
+        "group overflow-hidden transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1 bg-gradient-card border-border/50 cursor-pointer",
+        featured && "ring-2 ring-secondary ring-offset-2",
+        className
+      )}
+      onClick={() => navigate(`/property/${id}`)}
+    >
       <div className="relative overflow-hidden">
         <img
           src={image}

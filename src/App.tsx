@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import Billing from "./pages/Billing";
 import Commissions from "./pages/Commissions";
 import Invoices from "./pages/Invoices";
+import PropertyDetail from "./pages/PropertyDetail";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/property/:id" element={<PropertyDetail />} />
             <Route path="/billing" element={<Billing />} />
             <Route path="/billing/success" element={<Billing />} />
             <Route path="/billing/cancel" element={<Billing />} />
