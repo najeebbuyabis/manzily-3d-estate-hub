@@ -196,6 +196,72 @@ export type Database = {
         }
         Relationships: []
       }
+      properties: {
+        Row: {
+          agent_id: string
+          bathrooms: number | null
+          bedrooms: number | null
+          civil_number: string | null
+          contact_info: string | null
+          created_at: string
+          features: string[] | null
+          id: string
+          images: string[] | null
+          listing_type: string
+          location: string
+          price: number
+          property_type: string
+          size: number
+          size_unit: string
+          status: string
+          tour_link: string | null
+          updated_at: string
+          whatsapp_number: string | null
+        }
+        Insert: {
+          agent_id: string
+          bathrooms?: number | null
+          bedrooms?: number | null
+          civil_number?: string | null
+          contact_info?: string | null
+          created_at?: string
+          features?: string[] | null
+          id?: string
+          images?: string[] | null
+          listing_type: string
+          location: string
+          price: number
+          property_type: string
+          size: number
+          size_unit?: string
+          status?: string
+          tour_link?: string | null
+          updated_at?: string
+          whatsapp_number?: string | null
+        }
+        Update: {
+          agent_id?: string
+          bathrooms?: number | null
+          bedrooms?: number | null
+          civil_number?: string | null
+          contact_info?: string | null
+          created_at?: string
+          features?: string[] | null
+          id?: string
+          images?: string[] | null
+          listing_type?: string
+          location?: string
+          price?: number
+          property_type?: string
+          size?: number
+          size_unit?: string
+          status?: string
+          tour_link?: string | null
+          updated_at?: string
+          whatsapp_number?: string | null
+        }
+        Relationships: []
+      }
       property_events: {
         Row: {
           created_at: string
