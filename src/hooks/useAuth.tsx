@@ -7,6 +7,7 @@ interface AuthContextType {
   session: Session | null;
   loading: boolean;
   subscription: any | null;
+  isAuthenticated: boolean;
   checkSubscription: () => Promise<void>;
 }
 
@@ -15,6 +16,7 @@ const AuthContext = createContext<AuthContextType>({
   session: null,
   loading: true,
   subscription: null,
+  isAuthenticated: false,
   checkSubscription: async () => {},
 });
 
@@ -92,6 +94,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     session,
     loading,
     subscription,
+    isAuthenticated: !!user,
     checkSubscription,
   };
 

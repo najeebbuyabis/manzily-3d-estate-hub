@@ -7,6 +7,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Billing from "./pages/Billing";
+import Commissions from "./pages/Commissions";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
             <Route path="/billing" element={<Billing />} />
             <Route path="/billing/success" element={<Billing />} />
             <Route path="/billing/cancel" element={<Billing />} />
+            <Route path="/commissions" element={<Commissions />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
