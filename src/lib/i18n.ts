@@ -76,6 +76,20 @@ const resources = {
       clear: "Clear",
       apply: "Apply",
       
+      // Sections
+      searchPremiumApartments: "Search Premium Apartments",
+      searchDescription: "Use our advanced filters to find apartments that match your lifestyle and budget",
+      featuredApartments: "Featured Apartments",
+      featuredDescription: "Hand-picked premium properties with exclusive features",
+      propertyLocations: "Property Locations",
+      propertyLocationsDescription: "Interactive map showing property locations verified with Kuwait PACI GIS data",
+      viewAll: "View All",
+      
+      // Search and filters
+      searchByLocation: "Search by location or area",
+      advanced: "Advanced",
+      any: "Any",
+      
       // Property listing
       noPropertiesFound: "No properties found",
       viewMap: "View Map",
@@ -159,6 +173,20 @@ const resources = {
       filter: "تصفية",
       clear: "مسح",
       apply: "تطبيق",
+      
+      // Sections
+      searchPremiumApartments: "البحث عن الشقق المميزة",
+      searchDescription: "استخدم مرشحاتنا المتقدمة للعثور على شقق تناسب نمط حياتك وميزانيتك",
+      featuredApartments: "الشقق المميزة",
+      featuredDescription: "عقارات مميزة منتقاة بعناية مع ميزات حصرية",
+      propertyLocations: "مواقع العقارات",
+      propertyLocationsDescription: "خريطة تفاعلية تُظهر مواقع العقارات المتحقق منها باستخدام بيانات PACI GIS الكويتية",
+      viewAll: "عرض الكل",
+      
+      // Search and filters
+      searchByLocation: "البحث حسب الموقع أو المنطقة",
+      advanced: "متقدم",
+      any: "أي",
       
       // Property listing
       noPropertiesFound: "لم يتم العثور على عقارات",

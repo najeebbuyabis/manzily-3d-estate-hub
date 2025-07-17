@@ -35,7 +35,7 @@ const getPropertyTypes = (t: any) => [
 ];
 
 const getBedroomOptions = (t: any) => [
-  { value: "any", label: "Any" },
+  { value: "any", label: t('any') },
   { value: "1", label: `1 ${t('bedrooms')}` },
   { value: "2", label: `2 ${t('bedrooms')}` },
   { value: "3", label: `3 ${t('bedrooms')}` },
@@ -91,7 +91,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
           <div className="relative flex-1">
             <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search by location or area..."
+              placeholder={t('searchByLocation')}
               value={filters.location}
               onChange={(e) => updateFilter("location", e.target.value)}
               className="pl-10"
@@ -99,7 +99,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
           </div>
           <Button variant="luxury" size="lg">
             <Search className="h-4 w-4" />
-            Search
+            {t('search')}
           </Button>
         </div>
 
@@ -107,7 +107,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
         <div className="flex flex-wrap gap-2 mb-4">
           <Select value={filters.propertyType} onValueChange={(value) => updateFilter("propertyType", value)}>
             <SelectTrigger className="w-40">
-              <SelectValue placeholder="Property Type" />
+              <SelectValue placeholder={t('propertyType')} />
             </SelectTrigger>
             <SelectContent>
               {getPropertyTypes(t).map((type) => (
@@ -120,7 +120,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
 
           <Select value={filters.bedrooms} onValueChange={(value) => updateFilter("bedrooms", value)}>
             <SelectTrigger className="w-40">
-              <SelectValue placeholder="Bedrooms" />
+              <SelectValue placeholder={t('bedrooms')} />
             </SelectTrigger>
             <SelectContent>
               {getBedroomOptions(t).map((option) => (
@@ -137,7 +137,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
             className="relative"
           >
             <SlidersHorizontal className="h-4 w-4" />
-            Advanced
+            {t('advanced')}
             {activeFiltersCount > 0 && (
               <Badge className="absolute -top-2 -right-2 h-5 w-5 p-0 flex items-center justify-center bg-secondary text-xs">
                 {activeFiltersCount}
@@ -148,7 +148,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
           {activeFiltersCount > 0 && (
             <Button variant="ghost" onClick={clearFilters} size="sm">
               <X className="h-4 w-4" />
-              Clear
+              {t('clear')}
             </Button>
           )}
         </div>

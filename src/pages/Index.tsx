@@ -141,10 +141,10 @@ const Index = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Search Premium Apartments
+              {t('searchPremiumApartments')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Use our advanced filters to find apartments that match your lifestyle and budget
+              {t('searchDescription')}
             </p>
           </div>
           
@@ -158,14 +158,14 @@ const Index = () => {
           <div className="flex items-center justify-between mb-12">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Featured Apartments
+                {t('featuredApartments')}
               </h2>
               <p className="text-lg text-muted-foreground">
-                Hand-picked premium properties with exclusive features
+                {t('featuredDescription')}
               </p>
             </div>
             <Button variant="outline" className="hidden md:flex">
-              View All
+              {t('viewAll')}
               <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
@@ -187,10 +187,10 @@ const Index = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Property Locations
+              {t('propertyLocations')}
             </h2>
             <p className="text-lg text-muted-foreground">
-              Interactive map showing property locations verified with Kuwait PACI GIS data
+              {t('propertyLocationsDescription')}
             </p>
           </div>
           
