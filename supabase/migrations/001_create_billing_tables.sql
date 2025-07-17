@@ -123,6 +123,38 @@ CREATE POLICY "user_profiles_update_own" ON public.user_profiles
   FOR UPDATE TO authenticated
   USING (auth.uid() = id);
 
+-- Create invoices table
+CREATE TABLE public.invoices (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  invoice_number TEXT UNIQUE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  transaction_id TEXT,
+  type TEXT NOT NULL, -- subscription, featured_listing, commission, lead_generation
+  amount DECIMAL(10,3) NOT NULL,
+  currency TEXT DEFAULT 'KWD',
+  vat_amount DECIMAL(10,3),
+  status TEXT NOT NULL DEFAULT 'generated', -- generated, sent, paid, overdue
+  html_content TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- Enable Row Level Security for invoices
+ALTER TABLE public.invoices ENABLE ROW LEVEL SECURITY;
+
+-- Create RLS policies for invoices
+CREATE POLICY "invoices_select_own" ON public.invoices
+  FOR SELECT TO authenticated
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "invoices_insert_own" ON public.invoices
+  FOR INSERT TO authenticated
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "invoices_update_own" ON public.invoices
+  FOR UPDATE TO authenticated
+  USING (auth.uid() = user_id);
+
 -- Insert default subscription plans
 INSERT INTO public.subscription_plans (name, description, price_monthly, price_yearly, features, max_listings, max_featured_listings) VALUES
 ('Basic', 'Perfect for individual agents starting out', 25.000, 250.000, 

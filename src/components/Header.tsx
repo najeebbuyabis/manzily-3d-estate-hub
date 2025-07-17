@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Building2, User, Globe, Menu, LogOut, CreditCard, DollarSign } from "lucide-react";
+import { Building2, User, Globe, Menu, LogOut, CreditCard, DollarSign, FileText } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { supabase } from "@/integrations/supabase/client";
@@ -73,6 +73,10 @@ export const Header: React.FC = () => {
                   <DropdownMenuItem onClick={() => navigate('/commissions')}>
                     <DollarSign className="mr-2 h-4 w-4" />
                     Commissions
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/invoices')}>
+                    <FileText className="mr-2 h-4 w-4" />
+                    Invoices
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleSignOut}>
