@@ -84,25 +84,25 @@ const PropertyDetail: React.FC = () => {
           {t('backToProperties')}
         </Button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
           {/* Property Image and Details */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4 lg:space-y-6">
             {/* Main Image */}
             <div className="relative overflow-hidden rounded-lg">
               <img
                 src={property.image}
                 alt={property.title}
-                className="w-full h-96 object-cover"
+                className="w-full h-64 sm:h-80 lg:h-96 object-cover"
               />
               {property.featured && (
-                <Badge className="absolute top-4 left-4 bg-secondary text-secondary-foreground">
+                <Badge className="absolute top-2 left-2 lg:top-4 lg:left-4 bg-secondary text-secondary-foreground text-xs">
                   {t('featured')}
                 </Badge>
               )}
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute top-4 right-4 bg-background/80 backdrop-blur-sm hover:bg-background/90"
+                className="absolute top-2 right-2 lg:top-4 lg:right-4 bg-background/80 backdrop-blur-sm hover:bg-background/90"
               >
                 <Heart className="h-4 w-4" />
               </Button>
@@ -110,19 +110,19 @@ const PropertyDetail: React.FC = () => {
 
             {/* Property Info */}
             <div>
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h1 className="text-3xl font-bold text-foreground mb-2">{property.title}</h1>
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-2">
+                <div className="flex-1">
+                  <h1 className="text-2xl lg:text-3xl font-bold text-foreground mb-2">{property.title}</h1>
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <LocationIcon className="h-4 w-4 text-secondary" />
-                    <span>{property.location}</span>
+                    <LocationIcon className="h-4 w-4 text-secondary flex-shrink-0" />
+                    <span className="text-sm lg:text-base">{property.location}</span>
                   </div>
-                  <div className="text-sm text-muted-foreground/80 mt-1">
+                  <div className="text-xs lg:text-sm text-muted-foreground/80 mt-1">
                     {t('civilId')}: {property.civilNumber}
                   </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-3xl font-bold text-primary">
+                <div className="text-left sm:text-right">
+                  <p className="text-2xl lg:text-3xl font-bold text-primary">
                     {property.currency} {property.price.toLocaleString()}
                   </p>
                   <p className="text-sm text-muted-foreground">{t('perMonth')}</p>
@@ -130,18 +130,18 @@ const PropertyDetail: React.FC = () => {
               </div>
 
               {/* Property Features */}
-              <div className="flex items-center gap-6 mb-6">
+              <div className="flex flex-wrap items-center gap-4 lg:gap-6 mb-6">
                 <div className="flex items-center gap-2">
-                  <Bed className="h-5 w-5 text-secondary" />
-                  <span className="font-medium">{property.bedrooms} {t('bedrooms')}</span>
+                  <Bed className="h-4 w-4 lg:h-5 lg:w-5 text-secondary" />
+                  <span className="font-medium text-sm lg:text-base">{property.bedrooms} {t('bedrooms')}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Bath className="h-5 w-5 text-secondary" />
-                  <span className="font-medium">{property.bathrooms} {t('bathrooms')}</span>
+                  <Bath className="h-4 w-4 lg:h-5 lg:w-5 text-secondary" />
+                  <span className="font-medium text-sm lg:text-base">{property.bathrooms} {t('bathrooms')}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Square className="h-5 w-5 text-secondary" />
-                  <span className="font-medium">{property.area} {t('sqm')}</span>
+                  <Square className="h-4 w-4 lg:h-5 lg:w-5 text-secondary" />
+                  <span className="font-medium text-sm lg:text-base">{property.area} {t('sqm')}</span>
                 </div>
               </div>
 

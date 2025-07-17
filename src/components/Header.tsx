@@ -43,15 +43,15 @@ export const Header: React.FC = () => {
   return (
     <header className="bg-background/95 backdrop-blur-lg border-b border-border sticky top-0 z-50">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <Building2 className="h-6 w-6 text-primary-foreground" />
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
+              <Building2 className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground" />
             </div>
             <div className="flex flex-col">
-              <h1 className="text-xl font-bold text-foreground">Manzily</h1>
-              <p className="text-xs text-muted-foreground">Real Estate Platform</p>
+              <h1 className="text-lg sm:text-xl font-bold text-foreground">Manzily</h1>
+              <p className="text-xs text-muted-foreground hidden sm:block">Real Estate Platform</p>
             </div>
           </div>
 
