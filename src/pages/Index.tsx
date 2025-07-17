@@ -9,6 +9,7 @@ import PACIValidation from "@/components/PACIValidation";
 import SearchFilters from "@/components/SearchFilters";
 import ChatAssistant from "@/components/ChatAssistant";
 import PropertyIntakeAssistant from "@/components/PropertyIntakeAssistant";
+import AdminModerationAssistant from "@/components/AdminModerationAssistant";
 import { mockProperties, getFeaturedProperties, getUniqueProperties, deduplicatePropertiesByCivilNumber, Property } from "@/data/mockProperties";
 import { Building2, Star, TrendingUp, Users, MapPin, ArrowRight, Shield } from "lucide-react";
 
@@ -344,6 +345,9 @@ const Index = () => {
       
       {/* Property Intake Assistant */}
       <PropertyIntakeAssistant />
+      
+      {/* Admin Moderation Assistant */}
+      <AdminModerationAssistant />
     </div>
   );
 };

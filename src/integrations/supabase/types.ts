@@ -209,6 +209,10 @@ export type Database = {
           images: string[] | null
           listing_type: string
           location: string
+          moderated_at: string | null
+          moderated_by: string | null
+          moderation_notes: string | null
+          moderation_status: string | null
           price: number
           property_type: string
           size: number
@@ -230,6 +234,10 @@ export type Database = {
           images?: string[] | null
           listing_type: string
           location: string
+          moderated_at?: string | null
+          moderated_by?: string | null
+          moderation_notes?: string | null
+          moderation_status?: string | null
           price: number
           property_type: string
           size: number
@@ -251,6 +259,10 @@ export type Database = {
           images?: string[] | null
           listing_type?: string
           location?: string
+          moderated_at?: string | null
+          moderated_by?: string | null
+          moderation_notes?: string | null
+          moderation_status?: string | null
           price?: number
           property_type?: string
           size?: number
@@ -294,6 +306,47 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      property_moderation_messages: {
+        Row: {
+          admin_id: string
+          agent_id: string
+          id: string
+          message: string
+          message_type: string
+          property_id: string
+          read_at: string | null
+          sent_at: string
+        }
+        Insert: {
+          admin_id: string
+          agent_id: string
+          id?: string
+          message: string
+          message_type: string
+          property_id: string
+          read_at?: string | null
+          sent_at?: string
+        }
+        Update: {
+          admin_id?: string
+          agent_id?: string
+          id?: string
+          message?: string
+          message_type?: string
+          property_id?: string
+          read_at?: string | null
+          sent_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_moderation_messages_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       subscribers: {
         Row: {
@@ -345,7 +398,13 @@ export type Database = {
       }
     }
     Functions: {
-      [_ in never]: never
+      check_duplicate_civil_number: {
+        Args: { civil_num: string; property_id?: string }
+        Returns: {
+          duplicate_count: number
+          existing_properties: Json
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
