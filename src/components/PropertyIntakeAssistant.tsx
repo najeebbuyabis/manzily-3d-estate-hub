@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/hooks/useAuth';
+import { useUserProfile } from '@/hooks/useUserProfile';
 
 interface PropertyData {
   propertyType: string;
@@ -50,7 +50,7 @@ const PropertyIntakeAssistant = () => {
   const [isSaving, setIsSaving] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
-  const { user } = useAuth();
+  const { profile, isAgent, isAuthenticated } = useUserProfile();
 
   const steps = [
     {
@@ -197,7 +197,7 @@ Perfect! I've collected all the information. Do you want to feature this listing
   };
 
   const saveListing = async (status: 'draft' | 'published' | 'featured') => {
-    if (!user) {
+    if (!isAuthenticated || !profile) {
       toast({
         title: "Authentication required",
         description: "Please log in to save listings",
@@ -211,7 +211,7 @@ Perfect! I've collected all the information. Do you want to feature this listing
       const { error } = await supabase
         .from('properties')
         .insert({
-          agent_id: user.id,
+          agent_id: profile.user_id,
           property_type: propertyData.propertyType,
           listing_type: propertyData.listingType?.toLowerCase(),
           location: propertyData.location,
@@ -444,6 +444,11 @@ Perfect! I've collected all the information. Do you want to feature this listing
         );
     }
   };
+
+  // Only show for authenticated agents
+  if (!isAuthenticated || !isAgent) {
+    return null;
+  }
 
   return (
     <>
