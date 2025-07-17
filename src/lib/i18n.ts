@@ -13,6 +13,24 @@ const resources = {
       listProperty: "List Property",
       signIn: "Sign In",
       signOut: "Sign Out",
+      developers: "Developers",
+      agents: "Agents",
+      about: "About",
+      contact: "Contact",
+      
+      // Hero section
+      realEstatePlatform: "Real Estate Platform in Kuwait #1",
+      findYourPerfect: "Find Your Perfect",
+      dreamApartment: "Dream Apartment",
+      heroDescription: "Discover luxury apartments with stunning views, modern amenities, and prime locations across Kuwait. Your perfect home is just a click away.",
+      virtualTours: "Virtual Tours",
+      getStarted: "Get Started",
+      
+      // Stats
+      growthRate: "Growth Rate",
+      starReviews: "Star Reviews",
+      happyClients: "Happy Clients",
+      properties: "Properties",
       
       // Property search and filters
       searchProperties: "Search Properties",
@@ -79,6 +97,24 @@ const resources = {
       listProperty: "إدراج عقار",
       signIn: "تسجيل الدخول",
       signOut: "تسجيل الخروج",
+      developers: "المطورين",
+      agents: "الوكلاء",
+      about: "عن الموقع",
+      contact: "تواصل معنا",
+      
+      // Hero section
+      realEstatePlatform: "منصة العقارات رقم 1 في الكويت",
+      findYourPerfect: "ابحث عن",
+      dreamApartment: "الشقة المثالية",
+      heroDescription: "اكتشف الشقق الفاخرة ذات الإطلالات الخلابة والمرافق الحديثة والمواقع المميزة في جميع أنحاء الكويت. منزلك المثالي على بُعد نقرة واحدة.",
+      virtualTours: "جولات افتراضية",
+      getStarted: "ابدأ الآن",
+      
+      // Stats
+      growthRate: "معدل النمو",
+      starReviews: "تقييم النجوم",
+      happyClients: "عملاء سعداء",
+      properties: "عقارات",
       
       // Property search and filters
       searchProperties: "البحث عن العقارات",

@@ -11,6 +11,7 @@ import ChatAssistant from "@/components/ChatAssistant";
 import PropertyIntakeAssistant from "@/components/PropertyIntakeAssistant";
 import AdminModerationAssistant from "@/components/AdminModerationAssistant";
 import UserOnboarding from "@/components/UserOnboarding";
+import { useTranslation } from 'react-i18next';
 
 import { mockProperties, getFeaturedProperties, getUniqueProperties, deduplicatePropertiesByCivilNumber, Property } from "@/data/mockProperties";
 import { Building2, Star, TrendingUp, Users, MapPin, ArrowRight, Shield } from "lucide-react";
@@ -26,6 +27,7 @@ interface FilterState {
 }
 
 const Index = () => {
+  const { t } = useTranslation();
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
@@ -67,10 +69,10 @@ const Index = () => {
   const featuredProperties = deduplicatePropertiesByCivilNumber(getFeaturedProperties());
 
   const stats = [
-    { icon: Building2, label: "Properties", value: "2,500+" },
-    { icon: Users, label: "Happy Clients", value: "10,000+" },
-    { icon: Star, label: "5-Star Reviews", value: "4.9/5" },
-    { icon: TrendingUp, label: "Growth Rate", value: "25%" },
+    { icon: Building2, label: t('properties'), value: "+2,500" },
+    { icon: Users, label: t('happyClients'), value: "+10,000" },
+    { icon: Star, label: t('starReviews'), value: "4.9/5" },
+    { icon: TrendingUp, label: t('growthRate'), value: "25%" },
   ];
 
   return (
@@ -83,18 +85,18 @@ const Index = () => {
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <Badge className="bg-secondary text-secondary-foreground px-4 py-2">
               <Star className="h-4 w-4 mr-2" />
-              #1 Real Estate Platform in Kuwait
+              {t('realEstatePlatform')}
             </Badge>
             
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              Find Your Perfect
+              {t('findYourPerfect')}
               <span className="block bg-gradient-to-r from-secondary to-luxury-gold bg-clip-text text-transparent">
-                Dream Apartment
+                {t('dreamApartment')}
               </span>
             </h1>
             
             <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto">
-              Discover luxury apartments with stunning views, modern amenities, and prime locations across Kuwait. Your perfect home is just a click away.
+              {t('heroDescription')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -104,11 +106,11 @@ const Index = () => {
                 onClick={() => setShowOnboarding(true)}
               >
                 <Building2 className="h-5 w-5" />
-                Get Started
+                {t('getStarted')}
               </Button>
               <Button variant="outline" size="xl" className="bg-background/20 border-primary-foreground/30 text-primary-foreground hover:bg-background/30">
                 <MapPin className="h-5 w-5" />
-                Virtual Tours
+                {t('virtualTours')}
               </Button>
             </div>
           </div>

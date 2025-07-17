@@ -61,16 +61,16 @@ export const Header: React.FC = () => {
               {t('home')}
             </Button>
             <Button variant="ghost" onClick={() => navigate('/developers')} className="text-muted-foreground hover:text-primary transition-colors">
-              Developers
+              {t('developers')}
             </Button>
             <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-              Agents
+              {t('agents')}
             </a>
             <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-              About
+              {t('about')}
             </a>
             <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-              Contact
+              {t('contact')}
             </a>
           </nav>
 
