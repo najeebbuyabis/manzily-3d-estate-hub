@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Building2, User, Globe, Menu } from "lucide-react";
+import { Building2, User, Globe, Menu, LogOut, CreditCard } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { AuthModal } from "@/components/auth/AuthModal";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export const Header: React.FC = () => {
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const { user, subscription } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+  };
+
   return (
     <header className="bg-background/95 backdrop-blur-lg border-b border-border sticky top-0 z-50">
       <div className="container mx-auto px-4 lg:px-8">
@@ -44,10 +57,32 @@ export const Header: React.FC = () => {
             </Button>
 
             {/* Auth Buttons */}
-            <Button variant="ghost" size="sm">
-              <User className="h-4 w-4" />
-              Login
-            </Button>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm">
+                    <User className="h-4 w-4" />
+                    {user.email?.split('@')[0]}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => navigate('/billing')}>
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    Billing
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button variant="ghost" size="sm" onClick={() => setAuthModalOpen(true)}>
+                <User className="h-4 w-4" />
+                Login
+              </Button>
+            )}
             
             <Button variant="hero" size="sm">
               List Property
@@ -60,6 +95,7 @@ export const Header: React.FC = () => {
           </div>
         </div>
       </div>
+      <AuthModal open={authModalOpen} onOpenChange={setAuthModalOpen} />
     </header>
   );
 };

@@ -1,0 +1,103 @@
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { User, Session } from '@supabase/supabase-js';
+import { supabase } from '@/integrations/supabase/client';
+
+interface AuthContextType {
+  user: User | null;
+  session: Session | null;
+  loading: boolean;
+  subscription: any | null;
+  checkSubscription: () => Promise<void>;
+}
+
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  session: null,
+  loading: true,
+  subscription: null,
+  checkSubscription: async () => {},
+});
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
+
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [subscription, setSubscription] = useState<any | null>(null);
+
+  const checkSubscription = async () => {
+    if (!user) {
+      setSubscription(null);
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.functions.invoke('check-subscription');
+      if (error) {
+        console.error('Subscription check error:', error);
+        return;
+      }
+      
+      setSubscription(data.subscription);
+    } catch (error) {
+      console.error('Subscription check failed:', error);
+    }
+  };
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    // Listen for auth changes
+    const {
+      data: { subscription: authSubscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+      
+      // Check subscription when user logs in
+      if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+        if (session?.user) {
+          await checkSubscription();
+        }
+      } else if (event === 'SIGNED_OUT') {
+        setSubscription(null);
+      }
+    });
+
+    return () => authSubscription.unsubscribe();
+  }, []);
+
+  // Check subscription when user changes
+  useEffect(() => {
+    if (user && !loading) {
+      checkSubscription();
+    }
+  }, [user, loading]);
+
+  const value = {
+    user,
+    session,
+    loading,
+    subscription,
+    checkSubscription,
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
