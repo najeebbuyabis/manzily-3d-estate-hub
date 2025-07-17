@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -31,6 +32,7 @@ import {
 const PropertyDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   
   const property = id ? getPropertyById(id) : undefined;
 
@@ -41,11 +43,11 @@ const PropertyDetail: React.FC = () => {
         <div className="container mx-auto px-4 lg:px-8 py-8">
           <div className="text-center py-16">
             <Building2 className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-foreground mb-2">Property Not Found</h1>
-            <p className="text-muted-foreground mb-6">The property you're looking for doesn't exist.</p>
+            <h1 className="text-2xl font-bold text-foreground mb-2">{t('propertyNotFound')}</h1>
+            <p className="text-muted-foreground mb-6">{t('propertyNotFoundDescription')}</p>
             <Button onClick={() => navigate("/")}>
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Properties
+              {t('backToProperties')}
             </Button>
           </div>
         </div>
@@ -79,7 +81,7 @@ const PropertyDetail: React.FC = () => {
           className="mb-6"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Properties
+          {t('backToProperties')}
         </Button>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -94,7 +96,7 @@ const PropertyDetail: React.FC = () => {
               />
               {property.featured && (
                 <Badge className="absolute top-4 left-4 bg-secondary text-secondary-foreground">
-                  Featured
+                  {t('featured')}
                 </Badge>
               )}
               <Button
@@ -116,14 +118,14 @@ const PropertyDetail: React.FC = () => {
                     <span>{property.location}</span>
                   </div>
                   <div className="text-sm text-muted-foreground/80 mt-1">
-                    Civil ID: {property.civilNumber}
+                    {t('civilId')}: {property.civilNumber}
                   </div>
                 </div>
                 <div className="text-right">
                   <p className="text-3xl font-bold text-primary">
                     {property.currency} {property.price.toLocaleString()}
                   </p>
-                  <p className="text-sm text-muted-foreground">per month</p>
+                  <p className="text-sm text-muted-foreground">{t('perMonth')}</p>
                 </div>
               </div>
 
@@ -131,15 +133,15 @@ const PropertyDetail: React.FC = () => {
               <div className="flex items-center gap-6 mb-6">
                 <div className="flex items-center gap-2">
                   <Bed className="h-5 w-5 text-secondary" />
-                  <span className="font-medium">{property.bedrooms} Bedrooms</span>
+                  <span className="font-medium">{property.bedrooms} {t('bedrooms')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Bath className="h-5 w-5 text-secondary" />
-                  <span className="font-medium">{property.bathrooms} Bathrooms</span>
+                  <span className="font-medium">{property.bathrooms} {t('bathrooms')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Square className="h-5 w-5 text-secondary" />
-                  <span className="font-medium">{property.area} m²</span>
+                  <span className="font-medium">{property.area} {t('sqm')}</span>
                 </div>
               </div>
 
@@ -147,7 +149,7 @@ const PropertyDetail: React.FC = () => {
 
               {/* Description */}
               <div className="mb-6">
-                <h2 className="text-xl font-semibold text-foreground mb-3">Description</h2>
+                <h2 className="text-xl font-semibold text-foreground mb-3">{t('description')}</h2>
                 <p className="text-muted-foreground leading-relaxed">
                   {property.description}
                 </p>
