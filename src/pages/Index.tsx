@@ -10,6 +10,7 @@ import SearchFilters from "@/components/SearchFilters";
 import ChatAssistant from "@/components/ChatAssistant";
 import PropertyIntakeAssistant from "@/components/PropertyIntakeAssistant";
 import AdminModerationAssistant from "@/components/AdminModerationAssistant";
+import DeveloperAssistant from "@/components/DeveloperAssistant";
 import { mockProperties, getFeaturedProperties, getUniqueProperties, deduplicatePropertiesByCivilNumber, Property } from "@/data/mockProperties";
 import { Building2, Star, TrendingUp, Users, MapPin, ArrowRight, Shield } from "lucide-react";
 
@@ -348,6 +349,9 @@ const Index = () => {
       
       {/* Admin Moderation Assistant */}
       <AdminModerationAssistant />
+      
+      {/* Developer Assistant */}
+      <DeveloperAssistant />
     </div>
   );
 };
