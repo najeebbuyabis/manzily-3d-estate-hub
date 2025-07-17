@@ -196,9 +196,51 @@ export type Database = {
         }
         Relationships: []
       }
+      property_events: {
+        Row: {
+          created_at: string
+          event_data: Json | null
+          event_type: string
+          id: string
+          ip_address: unknown | null
+          property_id: string
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_data?: Json | null
+          event_type: string
+          id?: string
+          ip_address?: unknown | null
+          property_id: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_data?: Json | null
+          event_type?: string
+          id?: string
+          ip_address?: unknown | null
+          property_id?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      property_event_stats: {
+        Row: {
+          event_count: number | null
+          event_date: string | null
+          event_type: string | null
+          property_id: string | null
+          unique_users: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never

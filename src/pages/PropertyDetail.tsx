@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import Header from "@/components/Header";
 import PropertyMap from "@/components/PropertyMap";
 import { getPropertyById } from "@/data/mockProperties";
+import { usePropertyTracking } from "@/hooks/usePropertyTracking";
 import { 
   MapPin, 
   Bed, 
@@ -33,8 +34,57 @@ const PropertyDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [isSaved, setIsSaved] = useState(false);
   
   const property = id ? getPropertyById(id) : undefined;
+  const { 
+    trackPropertyView, 
+    trackContactAgentClick, 
+    trackSavedProperty, 
+    trackVisitRequest,
+    trackWhatsAppLaunch,
+    trackDealCompletion 
+  } = usePropertyTracking();
+
+  // Track property view on component mount
+  useEffect(() => {
+    if (property?.id) {
+      trackPropertyView(property.id);
+    }
+  }, [property?.id, trackPropertyView]);
+
+  const handleSaveProperty = () => {
+    if (!property?.id) return;
+    
+    const newSavedState = !isSaved;
+    setIsSaved(newSavedState);
+    trackSavedProperty(property.id, newSavedState ? 'save' : 'unsave');
+  };
+
+  const handleContactAgent = (contactMethod: string) => {
+    if (!property?.id) return;
+    trackContactAgentClick(property.id, contactMethod);
+  };
+
+  const handleScheduleViewing = () => {
+    if (!property?.id) return;
+    trackVisitRequest(property.id, { 
+      requested_at: new Date().toISOString(),
+      agent_name: property.agentName 
+    });
+  };
+
+  const handleWhatsAppClick = () => {
+    if (!property?.id) return;
+    trackWhatsAppLaunch(property.id, property.agentPhone);
+    
+    // Open WhatsApp
+    if (property.agentPhone) {
+      const phoneNumber = property.agentPhone.replace(/[^\d]/g, '');
+      const message = encodeURIComponent(`Hi! I'm interested in the property: ${property.title} (${property.location})`);
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+    }
+  };
 
   if (!property) {
     return (
@@ -102,9 +152,10 @@ const PropertyDetail: React.FC = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute top-2 right-2 lg:top-4 lg:right-4 bg-background/80 backdrop-blur-sm hover:bg-background/90"
+                onClick={handleSaveProperty}
+                className={`absolute top-2 right-2 lg:top-4 lg:right-4 bg-background/80 backdrop-blur-sm hover:bg-background/90 ${isSaved ? 'text-red-500' : ''}`}
               >
-                <Heart className="h-4 w-4" />
+                <Heart className={`h-4 w-4 ${isSaved ? 'fill-current' : ''}`} />
               </Button>
             </div>
 
@@ -197,13 +248,31 @@ const PropertyDetail: React.FC = () => {
                 )}
                 
                 <div className="space-y-3">
-                  <Button className="w-full" size="lg">
+                  <Button 
+                    className="w-full" 
+                    size="lg"
+                    onClick={() => handleContactAgent('call')}
+                  >
                     <Phone className="h-4 w-4 mr-2" />
                     Call Agent
                   </Button>
-                  <Button variant="outline" className="w-full" size="lg">
+                  <Button 
+                    variant="outline" 
+                    className="w-full" 
+                    size="lg"
+                    onClick={() => handleContactAgent('message')}
+                  >
                     <MessageCircle className="h-4 w-4 mr-2" />
                     Send Message
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full" 
+                    size="lg"
+                    onClick={handleWhatsAppClick}
+                  >
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    WhatsApp
                   </Button>
                 </div>
               </CardContent>
@@ -228,8 +297,33 @@ const PropertyDetail: React.FC = () => {
                   <p className="text-sm text-muted-foreground">
                     Book a time to visit this property
                   </p>
-                  <Button variant="secondary" className="w-full">
+                  <Button 
+                    variant="secondary" 
+                    className="w-full"
+                    onClick={handleScheduleViewing}
+                  >
                     Schedule Viewing
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Deal Completion Button */}
+            <Card className="bg-gradient-card border-border/50">
+              <CardContent className="p-6">
+                <div className="text-center space-y-4">
+                  <h3 className="font-semibold text-foreground">Mark Deal Complete</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Completed your deal for this property?
+                  </p>
+                  <Button 
+                    className="w-full bg-green-600 hover:bg-green-700"
+                    onClick={() => trackDealCompletion(property.id, { 
+                      completion_date: new Date().toISOString(),
+                      agent_name: property.agentName 
+                    })}
+                  >
+                    Deal Complete! 🎉
                   </Button>
                 </div>
               </CardContent>
