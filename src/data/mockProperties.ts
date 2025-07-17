@@ -10,6 +10,7 @@ export interface Property {
   id: string;
   title: string;
   location: string;
+  civilNumber: string;
   price: number;
   currency: string;
   bedrooms: number;
@@ -29,6 +30,7 @@ export const mockProperties: Property[] = [
     id: "1",
     title: "Luxury Waterfront Apartment",
     location: "Salmiya, Kuwait City",
+    civilNumber: "67890123",
     price: 850,
     currency: "KWD",
     bedrooms: 2,
@@ -46,6 +48,7 @@ export const mockProperties: Property[] = [
     id: "2",
     title: "Modern City Center Apartment",
     location: "Sharq, Kuwait City",
+    civilNumber: "89012345",
     price: 620,
     currency: "KWD",
     bedrooms: 1,
@@ -63,6 +66,7 @@ export const mockProperties: Property[] = [
     id: "3",
     title: "Elegant Garden Apartment",
     location: "Jabriya, Kuwait",
+    civilNumber: "23456789",
     price: 720,
     currency: "KWD",
     bedrooms: 3,
@@ -80,6 +84,7 @@ export const mockProperties: Property[] = [
     id: "4",
     title: "Contemporary Studio Apartment",
     location: "Mahboula, Kuwait",
+    civilNumber: "45678901",
     price: 480,
     currency: "KWD",
     bedrooms: 0,
@@ -97,6 +102,7 @@ export const mockProperties: Property[] = [
     id: "5",
     title: "Luxury Penthouse Suite",
     location: "Kuwait City Marina",
+    civilNumber: "12345678",
     price: 1500,
     currency: "KWD",
     bedrooms: 4,
@@ -114,6 +120,7 @@ export const mockProperties: Property[] = [
     id: "6",
     title: "Cozy Family Apartment",
     location: "Hawally, Kuwait",
+    civilNumber: "56789012",
     price: 350,
     currency: "KWD",
     bedrooms: 2,

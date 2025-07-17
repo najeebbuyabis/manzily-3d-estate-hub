@@ -10,6 +10,7 @@ interface PropertyCardProps {
   id: string;
   title: string;
   location: string;
+  civilNumber: string;
   price: number;
   currency: string;
   bedrooms: number;
@@ -25,6 +26,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   id,
   title,
   location,
+  civilNumber,
   price,
   currency,
   bedrooms,
@@ -96,6 +98,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             <div className="flex items-center gap-1 text-muted-foreground mt-1">
               <MapPin className="h-4 w-4 text-secondary" />
               <span className="text-sm">{location}</span>
+            </div>
+            <div className="text-xs text-muted-foreground/80 mt-1">
+              Civil ID: {civilNumber}
             </div>
           </div>
           

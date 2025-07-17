@@ -114,6 +114,9 @@ const PropertyDetail: React.FC = () => {
                     <LocationIcon className="h-4 w-4 text-secondary" />
                     <span>{property.location}</span>
                   </div>
+                  <div className="text-sm text-muted-foreground/80 mt-1">
+                    Civil ID: {property.civilNumber}
+                  </div>
                 </div>
                 <div className="text-right">
                   <p className="text-3xl font-bold text-primary">
