@@ -9,6 +9,8 @@ import house1 from "@/assets/house-1.jpg";
 import house2 from "@/assets/house-2.jpg";
 import farm1 from "@/assets/farm-1.jpg";
 import farm2 from "@/assets/farm-2.jpg";
+import land1 from "@/assets/land-1.jpg";
+import land2 from "@/assets/land-2.jpg";
 
 export interface Property {
   id: string;
@@ -211,6 +213,43 @@ export const mockProperties: Property[] = [
     amenities: ["Animal Shelters", "Grazing Areas", "Residential Quarters", "Feed Storage", "Veterinary Area"],
     agentName: "Salem Al-Dosari",
     agentPhone: "+965 9000 5555"
+  },
+  // Lands for Sale
+  {
+    id: "11",
+    title: "Residential Land Plot",
+    location: "Sabah Al-Salem, Kuwait",
+    civilNumber: "67890145",
+    price: 180000,
+    currency: "KWD",
+    bedrooms: 0,
+    bathrooms: 0,
+    area: 750,
+    type: "Land",
+    image: land1,
+    featured: false,
+    description: "Prime residential land plot ready for development in a well-established neighborhood with utilities available.",
+    amenities: ["Utilities Available", "Corner Plot", "Residential Zone", "Easy Access", "Flat Terrain"],
+    agentName: "Youssef Al-Ahmad",
+    agentPhone: "+965 8999 6666"
+  },
+  {
+    id: "12",
+    title: "Commercial Land Investment",
+    location: "Farwaniya, Kuwait",
+    civilNumber: "89012367",
+    price: 350000,
+    currency: "KWD",
+    bedrooms: 0,
+    bathrooms: 0,
+    area: 1200,
+    type: "Land",
+    image: land2,
+    featured: true,
+    description: "Strategic commercial land plot with high visibility and excellent investment potential in growing business district.",
+    amenities: ["Commercial Zone", "High Visibility", "Main Road Access", "Investment Opportunity", "Large Area"],
+    agentName: "Reem Al-Zahra",
+    agentPhone: "+965 8888 7777"
   }
 ];
 

@@ -30,6 +30,7 @@ const getPropertyTypes = (t: any) => [
   { value: "duplex", label: "Duplex" },
   { value: "house", label: "House" },
   { value: "farm", label: "Farm" },
+  { value: "land", label: "Land" },
 ];
 
 const getBedroomOptions = (t: any) => [
