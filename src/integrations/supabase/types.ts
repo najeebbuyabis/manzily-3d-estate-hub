@@ -163,6 +163,80 @@ export type Database = {
         }
         Relationships: []
       }
+      listing_fee_settings: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          currency: string
+          fee_amount: number
+          id: string
+          is_active: boolean
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          fee_amount?: number
+          id?: string
+          is_active?: boolean
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          fee_amount?: number
+          id?: string
+          is_active?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      listing_payments: {
+        Row: {
+          agent_id: string
+          amount: number
+          created_at: string
+          currency: string
+          id: string
+          payment_status: string
+          property_id: string | null
+          stripe_session_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          agent_id: string
+          amount: number
+          created_at?: string
+          currency?: string
+          id?: string
+          payment_status?: string
+          property_id?: string | null
+          stripe_session_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          agent_id?: string
+          amount?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          payment_status?: string
+          property_id?: string | null
+          stripe_session_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "listing_payments_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           company_name: string | null

@@ -18,6 +18,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { toast } from "@/hooks/use-toast";
 import { Users, Building2, DollarSign, Settings, Plus, Pencil, Trash2, Shield, BarChart3 } from "lucide-react";
 import DeveloperAssistant from "@/components/DeveloperAssistant";
+import ListingFeeSettings from "@/components/ListingFeeSettings";
 
 interface Developer {
   id: string;
@@ -584,6 +585,16 @@ export default function Admin() {
             </TabsContent>
 
             <TabsContent value="settings" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Listing Fee Settings</CardTitle>
+                  <CardDescription>Configure property listing fees</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ListingFeeSettings />
+                </CardContent>
+              </Card>
+              
               <Card>
                 <CardHeader>
                   <CardTitle>System Settings</CardTitle>

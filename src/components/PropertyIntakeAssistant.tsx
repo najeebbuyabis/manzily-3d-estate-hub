@@ -220,40 +220,41 @@ Perfect! I've collected all the information. Do you want to feature this listing
 
     setIsSaving(true);
     try {
-      const { error } = await supabase
-        .from('properties')
-        .insert({
-          agent_id: profile.user_id,
-          property_type: propertyData.propertyType,
-          listing_type: propertyData.listingType?.toLowerCase(),
-          location: propertyData.location,
-          price: parseFloat(propertyData.price || '0'),
-          size: parseFloat(propertyData.size || '0'),
-          size_unit: propertyData.sizeUnit || 'm²',
-          bedrooms: parseInt(propertyData.bedrooms || '0'),
-          bathrooms: parseInt(propertyData.bathrooms || '0'),
-          features: propertyData.features || [],
-          images: propertyData.images || [],
-          tour_link: propertyData.tourLink,
-          contact_info: propertyData.contactInfo,
-          whatsapp_number: propertyData.whatsappNumber,
-          civil_number: propertyData.civilNumber,
-          status: status
-        });
+      // Prepare property data with status
+      const finalPropertyData = {
+        ...propertyData,
+        status: status
+      };
+
+      // Call the listing payment function
+      const { data, error } = await supabase.functions.invoke('create-listing-payment', {
+        body: { propertyData: finalPropertyData }
+      });
 
       if (error) throw error;
 
-      toast({
-        title: "Success!",
-        description: `Property listing ${status === 'draft' ? 'saved as draft' : status === 'featured' ? 'featured' : 'published'} successfully`,
-      });
+      if (data.noPaymentRequired) {
+        // Property was created directly (no fee)
+        toast({
+          title: "Success!",
+          description: `Property listing ${status === 'draft' ? 'saved as draft' : status === 'featured' ? 'featured' : 'published'} successfully`,
+        });
 
-      addMessage(`Great! Your property listing has been ${status === 'draft' ? 'saved as draft' : status === 'featured' ? 'featured' : 'published'}. You can manage your listings from the agent dashboard.`, 'bot');
-      
-      // Reset for new listing
-      setTimeout(() => {
-        resetAssistant();
-      }, 3000);
+        addMessage(`Great! Your property listing has been ${status === 'draft' ? 'saved as draft' : status === 'featured' ? 'featured' : 'published'}. You can manage your listings from the agent dashboard.`, 'bot');
+        
+        // Reset for new listing
+        setTimeout(() => {
+          resetAssistant();
+        }, 3000);
+      } else if (data.url) {
+        // Redirect to payment
+        addMessage("A listing fee is required. You'll be redirected to complete the payment, and your property will be published once payment is confirmed.", 'bot');
+        
+        setTimeout(() => {
+          window.open(data.url, '_blank');
+          resetAssistant();
+        }, 2000);
+      }
 
     } catch (error) {
       console.error('Error saving listing:', error);
