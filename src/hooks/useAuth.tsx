@@ -47,7 +47,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return;
       }
       
-      setSubscription(data.subscription);
+      setSubscription({
+        subscribed: data.subscribed || false,
+        subscription_tier: data.subscription_tier || 'free',
+        subscription_end: data.subscription_end
+      });
     } catch (error) {
       console.error('Subscription check failed:', error);
     }

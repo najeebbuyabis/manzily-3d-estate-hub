@@ -13,6 +13,23 @@ export const SubscriptionPlans: React.FC = () => {
 
   const plans = [
     {
+      id: "free",
+      name: "Free Starter",
+      price: 0,
+      currency: "KWD",
+      icon: Building2,
+      description: "Get started with basic real estate tools",
+      features: [
+        "List up to 2 properties",
+        "Basic property search",
+        "View contact information",
+        "Mobile app access",
+        "Community support"
+      ],
+      popular: false,
+      isFree: true
+    },
+    {
       id: "basic",
       name: "Basic Agent",
       price: 29,
@@ -24,7 +41,8 @@ export const SubscriptionPlans: React.FC = () => {
         "Basic commission tracking",
         "Standard support",
         "Mobile app access",
-        "Email notifications"
+        "Email notifications",
+        "Featured property listings"
       ],
       popular: false
     },
@@ -74,13 +92,43 @@ export const SubscriptionPlans: React.FC = () => {
   const handleSubscribe = async (planId: string) => {
     if (!user) {
       toast({
-        title: "Authentication Required",
+        title: "Authentication Required", 
         description: "Please sign in to subscribe to a plan",
         variant: "destructive"
       });
       return;
     }
 
+    // Handle free plan subscription
+    if (planId === "free") {
+      try {
+        const { error } = await supabase.functions.invoke('create-free-subscription', {
+          body: { planId }
+        });
+
+        if (error) throw error;
+
+        toast({
+          title: "Welcome to Free Plan!",
+          description: "You're now on the free plan. Start listing your properties!",
+        });
+        
+        // Refresh subscription status
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } catch (error) {
+        console.error('Error creating free subscription:', error);
+        toast({
+          title: "Error",
+          description: "Failed to activate free plan. Please try again.",
+          variant: "destructive"
+        });
+      }
+      return;
+    }
+
+    // Handle paid plan subscription
     try {
       const { data, error } = await supabase.functions.invoke('create-checkout', {
         body: { planId }
@@ -102,7 +150,7 @@ export const SubscriptionPlans: React.FC = () => {
   };
 
   const isCurrentPlan = (planId: string) => {
-    if (!subscription) return false;
+    if (!subscription) return planId === "free";
     return subscription.subscription_tier?.toLowerCase() === planId;
   };
 
@@ -148,8 +196,14 @@ export const SubscriptionPlans: React.FC = () => {
                 </div>
                 <CardTitle className="text-xl text-foreground">{plan.name}</CardTitle>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold text-primary">{plan.currency} {plan.price}</span>
-                  <span className="text-muted-foreground">/month</span>
+                  {plan.isFree ? (
+                    <span className="text-4xl font-bold text-primary">Free</span>
+                  ) : (
+                    <>
+                      <span className="text-4xl font-bold text-primary">{plan.currency} {plan.price}</span>
+                      <span className="text-muted-foreground">/month</span>
+                    </>
+                  )}
                 </div>
                 <p className="text-sm text-muted-foreground mt-2">{plan.description}</p>
               </CardHeader>
@@ -172,11 +226,13 @@ export const SubscriptionPlans: React.FC = () => {
                       ? 'bg-secondary text-secondary-foreground hover:bg-secondary/90' 
                       : isCurrent
                       ? 'bg-muted text-muted-foreground'
+                      : plan.isFree
+                      ? 'bg-gradient-primary text-primary-foreground hover:opacity-90'
                       : ''
                   }`}
                   size="lg"
                 >
-                  {isCurrent ? 'Current Plan' : `Subscribe to ${plan.name}`}
+                  {isCurrent ? 'Current Plan' : plan.isFree ? 'Get Started Free' : `Subscribe to ${plan.name}`}
                 </Button>
               </CardContent>
             </Card>
@@ -186,7 +242,7 @@ export const SubscriptionPlans: React.FC = () => {
 
       <div className="text-center mt-12">
         <p className="text-sm text-muted-foreground mb-4">
-          All plans include a 14-day free trial. Cancel anytime.
+          Start with our free plan or get a 14-day free trial on paid plans. No credit card required for free plan.
         </p>
         {subscription?.subscribed && (
           <Button variant="outline" onClick={() => {
