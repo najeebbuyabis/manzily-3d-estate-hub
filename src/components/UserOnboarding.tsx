@@ -172,18 +172,23 @@ export default function UserOnboarding({ isOpen, onClose, onRoleSelected }: User
   };
 
   const handleRoleSelection = async (roleId: string) => {
-    // If user is not authenticated, just store the role selection and close
+    // If user is not authenticated, store role and redirect to auth
     if (!user) {
       // Store role in localStorage for after authentication
       localStorage.setItem('selectedRole', roleId);
       
       toast({
         title: isArabic ? "تم حفظ اختيارك" : "Role selection saved",
-        description: isArabic ? "سيتم تطبيق دورك عند تسجيل الدخول" : "Your role will be applied when you sign in"
+        description: isArabic ? "سجل الدخول الآن لإكمال الإعداد" : "Please sign in to complete setup"
       });
 
       onRoleSelected(roleId);
       onClose();
+      
+      // Redirect to auth after a short delay
+      setTimeout(() => {
+        window.location.href = '/auth';
+      }, 500);
       return;
     }
 

@@ -15,6 +15,7 @@ import AdminDevelopers from "./pages/AdminDevelopers";
 import Admin from "./pages/Admin";
 import Developers from "./pages/Developers";
 import ListingSuccess from "./pages/ListingSuccess";
+import Auth from "./pages/Auth";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/admin/developers" element={<AdminDevelopers />} />
             <Route path="/listing-success" element={<ListingSuccess />} />
             <Route path="/listing-cancelled" element={<Index />} />
+            <Route path="/auth" element={<Auth />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
