@@ -11,6 +11,7 @@ import ChatAssistant from "@/components/ChatAssistant";
 import PropertyIntakeAssistant from "@/components/PropertyIntakeAssistant";
 import AdminModerationAssistant from "@/components/AdminModerationAssistant";
 import UserOnboarding from "@/components/UserOnboarding";
+import BannerSection from "@/components/BannerSection";
 import { useTranslation } from 'react-i18next';
 
 import { mockProperties, getFeaturedProperties, getUniqueProperties, deduplicatePropertiesByCivilNumber, Property } from "@/data/mockProperties";
@@ -147,6 +148,9 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Top Banner Section */}
+      <BannerSection variant="top" />
+
       {/* Search Section */}
       <section className="py-16 bg-accent/50">
         <div className="container mx-auto px-4 lg:px-8">
@@ -193,6 +197,9 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Middle Banner Section */}
+      <BannerSection variant="middle" />
+
       {/* Property Map Section */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
@@ -214,8 +221,9 @@ const Index = () => {
                 className="max-w-full"
               />
             </div>
-            <div>
+            <div className="space-y-6">
               <PACIValidation className="h-fit" />
+              <BannerSection variant="sidebar" />
             </div>
           </div>
         </div>
