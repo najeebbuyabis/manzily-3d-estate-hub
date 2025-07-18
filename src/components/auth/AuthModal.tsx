@@ -194,11 +194,11 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
 
               <Button
                 type="submit"
-                className="w-full bg-trust-primary hover:bg-trust-primary/90 text-white"
+                className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90 transition-opacity font-semibold h-11"
                 disabled={loading}
               >
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Sign In
+                {loading ? "Signing In..." : "Sign In"}
               </Button>
             </form>
 
@@ -351,11 +351,11 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
 
               <Button
                 type="submit"
-                className="w-full bg-trust-primary hover:bg-trust-primary/90 text-white"
+                className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90 transition-opacity font-semibold h-11"
                 disabled={loading}
               >
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Create Account
+                {loading ? "Creating Account..." : "Create Account"}
               </Button>
             </form>
 
