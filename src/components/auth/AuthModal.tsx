@@ -6,9 +6,10 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Mail, Lock, User, Building2 } from "lucide-react";
+import { Loader2, Phone, Lock, User, Building2, MessageSquare } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 interface AuthModalProps {
   open: boolean;
@@ -17,32 +18,86 @@ interface AuthModalProps {
 
 export function AuthModal({ open, onOpenChange }: AuthModalProps) {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [role, setRole] = useState("buyer");
   const [companyName, setCompanyName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [otp, setOtp] = useState("");
+  const [showOtpInput, setShowOtpInput] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [tempUserId, setTempUserId] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+  const sendOtp = async () => {
+    if (!mobile) {
+      toast({
+        title: "Mobile number required",
+        description: "Please enter your mobile number",
+        variant: "destructive",
+      });
+      return;
+    }
 
+    setLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+      const { data, error } = await supabase.functions.invoke('send-otp', {
+        body: { mobile }
       });
 
       if (error) throw error;
 
+      setOtpSent(true);
+      setShowOtpInput(true);
       toast({
-        title: "Welcome back!",
-        description: "You have successfully signed in.",
+        title: "OTP Sent",
+        description: "Please check your mobile for the verification code",
       });
-      onOpenChange(false);
+    } catch (error: any) {
+      toast({
+        title: "Failed to send OTP",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!showOtpInput) {
+      await sendOtp();
+      return;
+    }
+
+    if (!otp || otp.length !== 6) {
+      toast({
+        title: "Invalid OTP",
+        description: "Please enter a valid 6-digit OTP",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('verify-otp-signin', {
+        body: { mobile, password, otp }
+      });
+
+      if (error) throw error;
+
+      if (data.session) {
+        await supabase.auth.setSession(data.session);
+        toast({
+          title: "Welcome back!",
+          description: "You have successfully signed in.",
+        });
+        onOpenChange(false);
+      }
     } catch (error: any) {
       toast({
         title: "Sign in failed",
@@ -88,44 +143,37 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
       return;
     }
 
-    setLoading(true);
+    if (!showOtpInput) {
+      await sendOtp();
+      return;
+    }
 
+    if (!otp || otp.length !== 6) {
+      toast({
+        title: "Invalid OTP",
+        description: "Please enter a valid 6-digit OTP",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setLoading(true);
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            full_name: fullName,
-            role,
-            company_name: companyName,
-            phone,
-          },
-        },
+      const { data, error } = await supabase.functions.invoke('verify-otp-signup', {
+        body: { 
+          mobile, 
+          password, 
+          otp,
+          fullName,
+          role,
+          companyName
+        }
       });
 
       if (error) throw error;
 
-      if (data.user && !data.session) {
-        toast({
-          title: "Check your email",
-          description: "We've sent you a confirmation link.",
-        });
-      } else {
-        // Create user profile
-        const { error: profileError } = await supabase
-          .from("profiles")
-          .insert({
-            user_id: data.user?.id,
-            role,
-            company_name: companyName || null,
-            phone: phone || null,
-          });
-
-        if (profileError) {
-          console.error("Profile creation error:", profileError);
-        }
-
+      if (data.session) {
+        await supabase.auth.setSession(data.session);
         toast({
           title: "Account created!",
           description: "Welcome to Manzily Real Estate Platform.",
@@ -161,15 +209,15 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
           <TabsContent value="signin" className="space-y-4">
             <form onSubmit={handleSignIn} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="signin-email">Email</Label>
+                <Label htmlFor="signin-mobile">Mobile Number</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-trust-light" />
+                  <Phone className="absolute left-3 top-3 h-4 w-4 text-trust-light" />
                   <Input
-                    id="signin-email"
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    id="signin-mobile"
+                    type="tel"
+                    placeholder="Enter your mobile number"
+                    value={mobile}
+                    onChange={(e) => setMobile(e.target.value)}
                     className="pl-9"
                     required
                   />
@@ -192,13 +240,32 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
                 </div>
               </div>
 
+              {showOtpInput && (
+                <div className="space-y-2">
+                  <Label htmlFor="signin-otp">Verification Code</Label>
+                  <div className="flex flex-col items-center space-y-2">
+                    <InputOTP value={otp} onChange={setOtp} maxLength={6}>
+                      <InputOTPGroup>
+                        <InputOTPSlot index={0} />
+                        <InputOTPSlot index={1} />
+                        <InputOTPSlot index={2} />
+                        <InputOTPSlot index={3} />
+                        <InputOTPSlot index={4} />
+                        <InputOTPSlot index={5} />
+                      </InputOTPGroup>
+                    </InputOTP>
+                    <p className="text-sm text-muted-foreground">Enter the 6-digit code sent to your mobile</p>
+                  </div>
+                </div>
+              )}
+
               <Button
                 type="submit"
                 className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90 transition-opacity font-semibold h-11"
                 disabled={loading}
               >
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {loading ? "Signing In..." : "Sign In"}
+                {loading ? (showOtpInput ? "Verifying..." : "Sending OTP...") : (showOtpInput ? "Verify & Sign In" : "Send OTP")}
               </Button>
             </form>
 
@@ -259,15 +326,15 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="signup-email">Email</Label>
+                <Label htmlFor="signup-mobile">Mobile Number</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-trust-light" />
+                  <Phone className="absolute left-3 top-3 h-4 w-4 text-trust-light" />
                   <Input
-                    id="signup-email"
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    id="signup-mobile"
+                    type="tel"
+                    placeholder="Enter your mobile number"
+                    value={mobile}
+                    onChange={(e) => setMobile(e.target.value)}
                     className="pl-9"
                     required
                   />
@@ -307,17 +374,6 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  placeholder="Enter your phone number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-
-              <div className="space-y-2">
                 <Label htmlFor="signup-password">Password</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-3 h-4 w-4 text-trust-light" />
@@ -349,13 +405,32 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
                 </div>
               </div>
 
+              {showOtpInput && (
+                <div className="space-y-2">
+                  <Label htmlFor="signup-otp">Verification Code</Label>
+                  <div className="flex flex-col items-center space-y-2">
+                    <InputOTP value={otp} onChange={setOtp} maxLength={6}>
+                      <InputOTPGroup>
+                        <InputOTPSlot index={0} />
+                        <InputOTPSlot index={1} />
+                        <InputOTPSlot index={2} />
+                        <InputOTPSlot index={3} />
+                        <InputOTPSlot index={4} />
+                        <InputOTPSlot index={5} />
+                      </InputOTPGroup>
+                    </InputOTP>
+                    <p className="text-sm text-muted-foreground">Enter the 6-digit code sent to your mobile</p>
+                  </div>
+                </div>
+              )}
+
               <Button
                 type="submit"
                 className="w-full bg-gradient-primary text-primary-foreground hover:opacity-90 transition-opacity font-semibold h-11"
                 disabled={loading}
               >
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {loading ? "Creating Account..." : "Create Account"}
+                {loading ? (showOtpInput ? "Creating Account..." : "Sending OTP...") : (showOtpInput ? "Verify & Create Account" : "Send OTP")}
               </Button>
             </form>
 
