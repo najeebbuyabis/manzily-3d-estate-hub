@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "@/components/Header";
-import { SubscriptionPlans } from "@/components/SubscriptionPlans";
+import { ManzillyPricingSection } from "@/components/ManzillyPricingSection";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -114,15 +114,15 @@ const Billing: React.FC = () => {
       
       <div className="container mx-auto px-4 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">Subscription Plans</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-2">اشترك الآن / Subscribe Now</h1>
           <p className="text-muted-foreground">
-            Choose the perfect plan for your real estate business in Kuwait
+            Choose the perfect plan for your real estate business in Kuwait and outperform Bo Shamlān
           </p>
         </div>
 
         {renderStatusMessage()}
 
-        <SubscriptionPlans />
+        <ManzillyPricingSection />
       </div>
     </div>
   );

@@ -267,6 +267,51 @@ export type Database = {
         }
         Relationships: []
       }
+      payments: {
+        Row: {
+          ads_purchased: number | null
+          amount_paid: number
+          created_at: string | null
+          currency: string | null
+          id: string
+          payment_method: string | null
+          payment_provider: string | null
+          payment_status: string | null
+          plan_type: string | null
+          transaction_id: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          ads_purchased?: number | null
+          amount_paid: number
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          payment_method?: string | null
+          payment_provider?: string | null
+          payment_status?: string | null
+          plan_type?: string | null
+          transaction_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          ads_purchased?: number | null
+          amount_paid?: number
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          payment_method?: string | null
+          payment_provider?: string | null
+          payment_status?: string | null
+          plan_type?: string | null
+          transaction_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           company_name: string | null
@@ -484,6 +529,126 @@ export type Database = {
           subscription_end?: string | null
           subscription_tier?: string | null
           updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      subscription_addons: {
+        Row: {
+          addon_type: string
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          is_active: boolean | null
+          name_ar: string
+          name_en: string
+          price: number
+          user_id: string | null
+        }
+        Insert: {
+          addon_type: string
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          name_ar: string
+          name_en: string
+          price: number
+          user_id?: string | null
+        }
+        Update: {
+          addon_type?: string
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          name_ar?: string
+          name_en?: string
+          price?: number
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      subscription_plans: {
+        Row: {
+          active: boolean | null
+          ads_limit: number | null
+          created_at: string | null
+          currency: string | null
+          description_ar: string | null
+          description_en: string | null
+          features_ar: string[] | null
+          features_en: string[] | null
+          id: string
+          is_monthly: boolean | null
+          is_unlimited: boolean | null
+          name_ar: string
+          name_en: string
+          popular: boolean | null
+          price: number
+        }
+        Insert: {
+          active?: boolean | null
+          ads_limit?: number | null
+          created_at?: string | null
+          currency?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          features_ar?: string[] | null
+          features_en?: string[] | null
+          id: string
+          is_monthly?: boolean | null
+          is_unlimited?: boolean | null
+          name_ar: string
+          name_en: string
+          popular?: boolean | null
+          price: number
+        }
+        Update: {
+          active?: boolean | null
+          ads_limit?: number | null
+          created_at?: string | null
+          currency?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          features_ar?: string[] | null
+          features_en?: string[] | null
+          id?: string
+          is_monthly?: boolean | null
+          is_unlimited?: boolean | null
+          name_ar?: string
+          name_en?: string
+          popular?: boolean | null
+          price?: number
+        }
+        Relationships: []
+      }
+      user_credits: {
+        Row: {
+          created_at: string | null
+          credits_remaining: number | null
+          id: string
+          last_free_ad_date: string | null
+          total_credits: number | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          credits_remaining?: number | null
+          id?: string
+          last_free_ad_date?: string | null
+          total_credits?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          credits_remaining?: number | null
+          id?: string
+          last_free_ad_date?: string | null
+          total_credits?: number | null
+          updated_at?: string | null
           user_id?: string | null
         }
         Relationships: []
