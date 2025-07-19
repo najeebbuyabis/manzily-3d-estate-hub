@@ -40,10 +40,13 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
       return;
     }
 
+    // Format mobile number with Kuwait country code
+    const formattedMobile = mobile.startsWith('+965') ? mobile : `+965${mobile.replace(/^0+/, '')}`;
+
     setLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke('send-otp', {
-        body: { mobile }
+        body: { mobile: formattedMobile }
       });
 
       if (error) throw error;
@@ -52,7 +55,7 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
       setShowOtpInput(true);
       toast({
         title: "OTP Sent",
-        description: "Please check your mobile for the verification code",
+        description: `Verification code sent to ${formattedMobile}`,
       });
     } catch (error: any) {
       toast({
@@ -84,8 +87,11 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
 
     setLoading(true);
     try {
+      // Format mobile number with Kuwait country code
+      const formattedMobile = mobile.startsWith('+965') ? mobile : `+965${mobile.replace(/^0+/, '')}`;
+      
       const { data, error } = await supabase.functions.invoke('verify-otp-signin', {
-        body: { mobile, password, otp }
+        body: { mobile: formattedMobile, password, otp }
       });
 
       if (error) throw error;
@@ -159,9 +165,12 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
 
     setLoading(true);
     try {
+      // Format mobile number with Kuwait country code
+      const formattedMobile = mobile.startsWith('+965') ? mobile : `+965${mobile.replace(/^0+/, '')}`;
+      
       const { data, error } = await supabase.functions.invoke('verify-otp-signup', {
         body: { 
-          mobile, 
+          mobile: formattedMobile, 
           password, 
           otp,
           fullName,
@@ -215,13 +224,14 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
                   <Input
                     id="signin-mobile"
                     type="tel"
-                    placeholder="Enter your mobile number"
+                    placeholder="e.g., 99662248 or +96599662248"
                     value={mobile}
                     onChange={(e) => setMobile(e.target.value)}
                     className="pl-9"
                     required
                   />
                 </div>
+                <p className="text-xs text-muted-foreground">Enter your Kuwait mobile number (automatically adds +965)</p>
               </div>
 
               <div className="space-y-2">
@@ -332,13 +342,14 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
                   <Input
                     id="signup-mobile"
                     type="tel"
-                    placeholder="Enter your mobile number"
+                    placeholder="e.g., 99662248 or +96599662248"
                     value={mobile}
                     onChange={(e) => setMobile(e.target.value)}
                     className="pl-9"
                     required
                   />
                 </div>
+                <p className="text-xs text-muted-foreground">Enter your Kuwait mobile number (automatically adds +965)</p>
               </div>
 
               <div className="space-y-2">

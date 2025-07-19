@@ -52,6 +52,11 @@ const handler = async (req: Request): Promise<Response> => {
     // TODO: Integrate with SMS service (Twilio, AWS SNS, etc.)
     // For now, we'll just log the OTP (in production, send SMS)
     console.log(`OTP for ${mobile}: ${otp}`);
+    
+    // For Kuwait numbers, you could integrate with local SMS providers like:
+    // - Zain Kuwait API
+    // - Orange Kuwait API  
+    // - Or international providers like Twilio with Kuwait support
 
     // In development, you might want to return the OTP for testing
     // Remove this in production!
