@@ -237,6 +237,36 @@ export type Database = {
           },
         ]
       }
+      mobile_otps: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          mobile: string
+          otp: string
+          updated_at: string
+          verified: boolean
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          mobile: string
+          otp: string
+          updated_at?: string
+          verified?: boolean
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          mobile?: string
+          otp?: string
+          updated_at?: string
+          verified?: boolean
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           company_name: string | null
