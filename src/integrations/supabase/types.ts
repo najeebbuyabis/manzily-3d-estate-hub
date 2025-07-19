@@ -53,6 +53,66 @@ export type Database = {
         }
         Relationships: []
       }
+      credit_packages: {
+        Row: {
+          created_at: string
+          credit_count: number | null
+          currency: string | null
+          description_ar: string | null
+          description_en: string | null
+          duration_days: number | null
+          features_ar: string[] | null
+          features_en: string[] | null
+          id: string
+          is_active: boolean | null
+          is_popular: boolean | null
+          name_ar: string
+          name_en: string
+          price: number
+          sort_order: number | null
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          credit_count?: number | null
+          currency?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          duration_days?: number | null
+          features_ar?: string[] | null
+          features_en?: string[] | null
+          id: string
+          is_active?: boolean | null
+          is_popular?: boolean | null
+          name_ar: string
+          name_en: string
+          price: number
+          sort_order?: number | null
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          credit_count?: number | null
+          currency?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          duration_days?: number | null
+          features_ar?: string[] | null
+          features_en?: string[] | null
+          id?: string
+          is_active?: boolean | null
+          is_popular?: boolean | null
+          name_ar?: string
+          name_en?: string
+          price?: number
+          sort_order?: number | null
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       developer_projects: {
         Row: {
           created_at: string
@@ -620,6 +680,51 @@ export type Database = {
           name_en?: string
           popular?: boolean | null
           price?: number
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          amount: number
+          created_at: string
+          credit_count: number | null
+          currency: string | null
+          expires_on: string | null
+          id: string
+          package_details: Json | null
+          status: string
+          tap_payment_id: string | null
+          type: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          credit_count?: number | null
+          currency?: string | null
+          expires_on?: string | null
+          id?: string
+          package_details?: Json | null
+          status?: string
+          tap_payment_id?: string | null
+          type: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          credit_count?: number | null
+          currency?: string | null
+          expires_on?: string | null
+          id?: string
+          package_details?: Json | null
+          status?: string
+          tap_payment_id?: string | null
+          type?: string
+          updated_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }

@@ -12,6 +12,7 @@ import PropertyIntakeAssistant from "@/components/PropertyIntakeAssistant";
 import AdminModerationAssistant from "@/components/AdminModerationAssistant";
 import UserOnboarding from "@/components/UserOnboarding";
 import BannerSection from "@/components/BannerSection";
+import { CreditPackages } from "@/components/CreditPackages";
 import { useTranslation } from 'react-i18next';
 
 import { mockProperties, getFeaturedProperties, getUniqueProperties, deduplicatePropertiesByCivilNumber, Property } from "@/data/mockProperties";
@@ -265,6 +266,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Credit Packages */}
+      <CreditPackages />
 
       {/* All Properties */}
       <section className="py-16 bg-accent/30">
