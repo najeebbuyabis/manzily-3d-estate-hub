@@ -175,7 +175,7 @@ const resources = {
       // Hero section
       realEstatePlatform: "منصة العقارات رقم 1 في الكويت",
       findYourPerfect: "ابحث عن",
-      dreamApartment: "الشقة المثالية",
+      dreamApartment: "منزلك المثالي",
       heroDescription: "اكتشف الشقق الفاخرة ذات الإطلالات الخلابة والمرافق الحديثة والمواقع المميزة في جميع أنحاء الكويت. منزلك المثالي على بُعد نقرة واحدة.",
       virtualTours: "جولات افتراضية",
       getStarted: "ابدأ الآن",
