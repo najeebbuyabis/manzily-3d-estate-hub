@@ -22,7 +22,7 @@ const resources = {
       realEstatePlatform: "Real Estate Platform in Kuwait #1",
       findYourPerfect: "Find Your Perfect",
       dreamApartment: "Dream Apartment",
-      heroDescription: "Discover luxury apartments with stunning views, modern amenities, and prime locations across Kuwait. Your perfect home is just a click away.",
+      heroDescription: "Discover luxury homes with stunning views, modern amenities, and prime locations across Kuwait. Your perfect home is just a click away.",
       virtualTours: "Virtual Tours",
       getStarted: "Get Started",
       
@@ -96,9 +96,9 @@ const resources = {
       apply: "Apply",
       
       // Sections
-      searchPremiumApartments: "Search Premium Apartments",
-      searchDescription: "Use our advanced filters to find apartments that match your lifestyle and budget",
-      featuredApartments: "Featured Apartments",
+      searchPremiumApartments: "Search Premium Homes",
+      searchDescription: "Use our advanced filters to find homes that match your lifestyle and budget",
+      featuredApartments: "Featured Homes",
       featuredDescription: "Hand-picked premium properties with exclusive features",
       propertyLocations: "Property Locations",
       propertyLocationsDescription: "Interactive map showing property locations verified with Kuwait PACI GIS data",
@@ -130,7 +130,7 @@ const resources = {
       accurateLocationsDesc: "Precise coordinates from official records",
       
       // Property listings
-      availableApartments: "Available Apartments",
+      availableApartments: "Available Homes",
       propertiesFound: "properties found",
       civilId: "Civil ID:",
       
