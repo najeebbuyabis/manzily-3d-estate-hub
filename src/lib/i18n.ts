@@ -176,7 +176,7 @@ const resources = {
       realEstatePlatform: "منصة العقارات رقم 1 في الكويت",
       findYourPerfect: "ابحث عن",
       dreamApartment: "منزلك المثالي",
-      heroDescription: "اكتشف الشقق الفاخرة ذات الإطلالات الخلابة والمرافق الحديثة والمواقع المميزة في جميع أنحاء الكويت. منزلك المثالي على بُعد نقرة واحدة.",
+      heroDescription: "اكتشف المنازل الفاخرة ذات الإطلالات الخلابة والمرافق الحديثة والمواقع المميزة في جميع أنحاء الكويت. منزلك المثالي على بُعد نقرة واحدة.",
       virtualTours: "جولات افتراضية",
       getStarted: "ابدأ الآن",
       
@@ -250,9 +250,9 @@ const resources = {
       apply: "تطبيق",
       
       // Sections
-      searchPremiumApartments: "البحث عن الشقق المميزة",
-      searchDescription: "استخدم مرشحاتنا المتقدمة للعثور على شقق تناسب نمط حياتك وميزانيتك",
-      featuredApartments: "الشقق المميزة",
+      searchPremiumApartments: "البحث عن المنازل المميزة",
+      searchDescription: "استخدم مرشحاتنا المتقدمة للعثور على منازل تناسب نمط حياتك وميزانيتك",
+      featuredApartments: "المنازل المميزة",
       featuredDescription: "عقارات مميزة منتقاة بعناية مع ميزات حصرية",
       propertyLocations: "مواقع العقارات",
       propertyLocationsDescription: "خريطة تفاعلية تُظهر مواقع العقارات المتحقق منها باستخدام بيانات PACI GIS الكويتية",
@@ -284,7 +284,7 @@ const resources = {
       accurateLocationsDesc: "إحداثيات دقيقة من السجلات الرسمية",
       
       // Property listings
-      availableApartments: "الشقق المتاحة",
+      availableApartments: "المنازل المتاحة",
       propertiesFound: "عقار موجود",
       civilId: "الرقم المدني:",
       
